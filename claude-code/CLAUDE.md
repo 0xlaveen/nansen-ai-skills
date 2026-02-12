@@ -57,13 +57,22 @@ Run `nansen schema` to discover all commands, options, and return fields. Use it
 | `--days` | Date range (days back) | `--days 7` |
 | `--filters` | Advanced JSON filter | `--filters '{"min_usd": 10000}'` |
 | `--pretty` | Pretty-print JSON | |
-| `--no-cache` | Skip cache | |
 
 ## Supported Chains (20)
 
-**Primary:** ethereum · solana · base · hyperliquid · bnb
+**Primary:** ethereum · solana · base · hyperevm · bnb
 
 **All:** ethereum, solana, base, bnb, arbitrum, polygon, optimism, avalanche, linea, scroll, zksync, mantle, ronin, sei, plasma, sonic, unichain, monad, hyperevm, iotaevm
+
+## Quick Routing
+
+- Smart money / fund flows / what whales are buying → read `nansen-smart-money.md`
+- Specific wallet (who is 0x…, balance, PnL, labels) → read `nansen-profiler.md`
+- Specific token (holders, flows, screener, PnL) → read `nansen-token.md`
+- DeFi positions / portfolio overview → read `nansen-portfolio.md`
+- Perps / Hyperliquid / perpetual futures → read `nansen-hyperliquid.md`
+
+**Always read the relevant sub-file before executing commands.**
 
 ## Skill Reference Files
 

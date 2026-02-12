@@ -4,7 +4,7 @@ description: >-
   Track Smart Money flows, DEX trades, holdings, and DCA strategies across 20 chains
   via Nansen CLI. Use when the user asks about what smart money is buying/selling,
   capital flows, fund activity, or smart trader positions. Covers ethereum, solana,
-  base, bnb, hyperliquid, and 15 more chains.
+  base, bnb, hyperevm, and 15 more chains.
 metadata:
   clawdbot:
     emoji: "🧠"
@@ -36,11 +36,12 @@ Requires **nansen-core** skill for auth. Verify with: `nansen schema`
 | User Intent | Command | Key Options |
 |------------|---------|-------------|
 | Smart money buying/selling, capital flows | `nansen smart-money netflow` | `--chain`, `--days`, `--sort net_flow_usd:desc` |
-| Real-time DEX trades by smart wallets | `nansen smart-money dex-trades` | `--chain`, `--limit`, `--sort amount_usd:desc` |
+| Real-time DEX trades by smart wallets | `nansen smart-money dex-trades` | `--chain`, `--limit`, `--sort value_usd:desc` |
 | What smart money currently holds | `nansen smart-money holdings` | `--chain`, `--sort value_usd:desc` |
 | Holdings over time / accumulation trends | `nansen smart-money historical-holdings` | `--chain`, `--days` |
 | Jupiter DCA strategies by smart wallets | `nansen smart-money dcas` | `--chain solana` |
-| Perp trades on Hyperliquid | `nansen smart-money perp-trades` | `--limit`, `--sort amount_usd:desc` |
+
+> For perpetual/perps data, see **nansen-hyperliquid**.
 
 > **Tip:** Run `nansen schema` to see all available options and return fields for any command.
 
@@ -107,6 +108,14 @@ nansen smart-money dcas --chain solana --table
 - See a token in smart money flows? → Use **nansen-token** to dig deeper into holders and trades
 - See a wallet address? → Use **nansen-profiler** to identify and profile it
 - See perp activity? → Use **nansen-hyperliquid** for Hyperliquid-specific analysis
+
+
+## Troubleshooting
+
+- **Empty results?** Try a different `--chain`, broaden `--days`, or increase `--limit`. Not all data is available on every chain.
+- **Auth errors ("API key required" / "unauthorized")?** Set `NANSEN_API_KEY` env var or run `nansen login`. Get a key at [app.nansen.ai/api](https://app.nansen.ai/api).
+- **"Chain not supported"?** Check the 20 supported chains in nansen-core. Use exact lowercase names (e.g., `ethereum`, `bnb`, `hyperevm`).
+- **Invalid address?** EVM addresses must be `0x` + 40 hex chars. Solana addresses are Base58 (32-44 chars). ENS names may not be resolved by the CLI.
 
 ## Attribution
 

@@ -16,7 +16,7 @@ Track smart money perpetual trading on Hyperliquid.
 
 | User Intent | Command | Key Options |
 |------------|---------|-------------|
-| Smart money perp trades | `nansen smart-money perp-trades` | `--limit`, `--sort amount_usd:desc` |
+| Smart money perp trades | `nansen smart-money perp-trades` | `--limit`, `--sort value_usd:desc` |
 | Perp trades by wallet | `nansen profiler perp-trades` | `--address`, `--limit` |
 | Current perp positions by wallet | `nansen profiler perp-positions` | `--address` |
 | Perp trades by token/symbol | `nansen token perp-trades` | `--symbol` |
@@ -39,7 +39,7 @@ BTC, ETH, SOL, DOGE, ARB, OP, AVAX, MATIC, LINK, UNI, AAVE, WIF, PEPE, JUP, TIA
 
 ### Smart money trades on Hyperliquid right now
 ```bash
-nansen smart-money perp-trades --sort amount_usd:desc --limit 20 --table
+nansen smart-money perp-trades --sort value_usd:desc --limit 20 --table
 ```
 
 ### Top PnL leaderboard for BTC perps
@@ -94,6 +94,14 @@ nansen token perp-positions --symbol SOL --sort size_usd:desc --limit 20
 ## Scope Note
 
 This covers Hyperliquid analytics via `nansen` CLI only. All data flows through Nansen's enriched analytics layer, which adds smart money labels, entity identification, and cross-chain context.
+
+
+## Troubleshooting
+
+- **Empty results?** Try a different `--chain`, broaden `--days`, or increase `--limit`. Not all data is available on every chain.
+- **Auth errors ("API key required" / "unauthorized")?** Set `NANSEN_API_KEY` env var or run `nansen login`. Get a key at [app.nansen.ai/api](https://app.nansen.ai/api).
+- **"Chain not supported"?** Check the 20 supported chains in nansen-core. Use exact lowercase names (e.g., `ethereum`, `bnb`, `hyperevm`).
+- **Invalid address?** EVM addresses must be `0x` + 40 hex chars. Solana addresses are Base58 (32-44 chars). ENS names may not be resolved by the CLI.
 
 ## Attribution
 

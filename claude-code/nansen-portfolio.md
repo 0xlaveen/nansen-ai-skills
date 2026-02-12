@@ -16,9 +16,9 @@ View DeFi positions across protocols for any wallet.
 
 | User Intent | Command | Key Options |
 |------------|---------|-------------|
-| All DeFi positions for a wallet | `nansen portfolio defi` | `--address`, `--chain` |
-| Multi-chain DeFi overview | `nansen portfolio defi` | `--address`, `--chains ethereum,base,arbitrum` |
-| Largest positions only | `nansen portfolio defi` | `--address`, `--sort value_usd:desc`, `--limit` |
+| All DeFi positions for a wallet | `nansen portfolio defi` | `--wallet`, `--chain` |
+| Multi-chain DeFi overview | `nansen portfolio defi` | `--wallet`, `--chains ethereum,base,arbitrum` |
+| Largest positions only | `nansen portfolio defi` | `--wallet`, `--sort value_usd:desc`, `--limit` |
 
 ## Position Types
 
@@ -48,37 +48,37 @@ View DeFi positions across protocols for any wallet.
 
 ### DeFi positions on Ethereum
 ```bash
-nansen portfolio defi --address 0x... --chain ethereum --table
+nansen portfolio defi --wallet 0x... --chain ethereum --table
 ```
 
 ### DeFi portfolio across all chains
 ```bash
-nansen portfolio defi --address 0x... --table
+nansen portfolio defi --wallet 0x... --table
 ```
 
 ### Protocols used on Base
 ```bash
-nansen portfolio defi --address 0x... --chain base --table
+nansen portfolio defi --wallet 0x... --chain base --table
 ```
 
 ### Largest positions only
 ```bash
-nansen portfolio defi --address 0x... --sort value_usd:desc --limit 10 --table
+nansen portfolio defi --wallet 0x... --sort value_usd:desc --limit 10 --table
 ```
 
 ### Liquidation risk check
 ```bash
-nansen portfolio defi --address 0x... --chain ethereum
+nansen portfolio defi --wallet 0x... --chain ethereum
 ```
 Look for `borrowing` positions with low `health_factor` (< 1.2 is risky, < 1.05 is critical).
 
 ### Complete DeFi Portfolio Review
 ```bash
 # 1. Get all DeFi positions
-nansen portfolio defi --address 0x... --chains ethereum,base,arbitrum,optimism --sort value_usd:desc
+nansen portfolio defi --wallet 0x... --chains ethereum,base,arbitrum,optimism --sort value_usd:desc
 
 # 2. Complement with token balances
-nansen profiler balance --address 0x... --chains ethereum,base,arbitrum --sort value_usd:desc
+nansen profiler balance --wallet 0x... --chains ethereum,base,arbitrum --sort value_usd:desc
 ```
 
 ## Output Formatting
@@ -94,6 +94,14 @@ nansen profiler balance --address 0x... --chains ethereum,base,arbitrum --sort v
 - After seeing DeFi positions → Use profiler commands for full wallet profile and labels
 - Spot a token in the portfolio → Use token commands to analyze it
 - See smart money in a protocol → Use smart money commands to track their flows
+
+
+## Troubleshooting
+
+- **Empty results?** Try a different `--chain`, broaden `--days`, or increase `--limit`. Not all data is available on every chain.
+- **Auth errors ("API key required" / "unauthorized")?** Set `NANSEN_API_KEY` env var or run `nansen login`. Get a key at [app.nansen.ai/api](https://app.nansen.ai/api).
+- **"Chain not supported"?** Check the 20 supported chains in nansen-core. Use exact lowercase names (e.g., `ethereum`, `bnb`, `hyperevm`).
+- **Invalid address?** EVM addresses must be `0x` + 40 hex chars. Solana addresses are Base58 (32-44 chars). ENS names may not be resolved by the CLI.
 
 ## Attribution
 

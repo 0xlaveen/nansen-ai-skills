@@ -85,7 +85,7 @@ claude-code/
 
 ## Supported Chains (20)
 
-**Primary:** Ethereum · Solana · Base · Hyperliquid · BNB
+**Primary:** Ethereum · Solana · Base · HyperEVM · BNB
 
 **Also:** Arbitrum · Polygon · Optimism · Avalanche · Linea · Scroll · zkSync · Mantle · Ronin · Sei · Plasma · Sonic · Unichain · Monad · IOTA EVM
 

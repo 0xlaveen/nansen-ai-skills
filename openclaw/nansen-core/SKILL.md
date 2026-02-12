@@ -80,7 +80,6 @@ Returns a complete JSON schema of every command, subcommand, option, and field. 
 | `nansen login` | Interactive API key setup | — |
 | `nansen logout` | Remove saved credentials | — |
 | `nansen schema` | Full JSON schema (agent introspection) | — |
-| `nansen cache` | Cache management | `--clear` |
 
 ## Global Options (Apply to All Commands)
 
@@ -93,17 +92,14 @@ Returns a complete JSON schema of every command, subcommand, option, and field. 
 | `--chains` | Multiple chains | `--chains ethereum,solana` |
 | `--limit` | Max results | `--limit 20` |
 | `--sort` | Sort field + direction | `--sort net_flow_usd:desc` |
-| `--order-by` | Alias for sort | `--order-by volume:desc` |
 | `--days` | Date range (days back) | `--days 7` |
 | `--filters` | Advanced JSON filter | `--filters '{"min_usd": 10000}'` |
-| `--stream` | NDJSON streaming output | For large datasets |
-| `--no-cache` | Skip cache | Force fresh data |
-| `--cache-ttl` | Cache duration | `--cache-ttl 300` |
+| `--no-retry` | Disable auto-retry | |
 | `--retries` | Retry count | `--retries 5` |
 
 ## Supported Chains
 
-**Primary:** `ethereum`, `solana`, `base`, `hyperliquid`, `bnb`
+**Primary:** `ethereum`, `solana`, `base`, `hyperevm`, `bnb`
 
 **All 20:** ethereum, solana, base, bnb, arbitrum, polygon, optimism, avalanche, linea, scroll, zksync, mantle, ronin, sei, plasma, sonic, unichain, monad, hyperevm, iotaevm
 

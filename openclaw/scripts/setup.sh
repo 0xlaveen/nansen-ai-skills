@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Nansen CLI Setup Script for OpenClaw Skills
+# Nansen CLI Setup Script for OpenClaw & Claude Code
 # Installs nansen-cli and verifies authentication
 set -euo pipefail
 

@@ -11,13 +11,12 @@ Profile any wallet: balances, labels, PnL, transactions, and entity search.
 - "Transaction history for this wallet"
 - "Related wallets" / "Who does this wallet interact with?"
 - "Historical balance over time"
-- "Perp positions for this trader"
 
 ## Command Routing
 
 | User Intent | Command | Key Options |
 |------------|---------|-------------|
-| Current token holdings | `nansen profiler balance` | `--address`, `--chain`, `--sort value_usd:desc` |
+| Current token holdings | `nansen profiler balance` | `--address`, `--chain`, `--sort balance_usd:desc` |
 | Wallet labels (entity, behavior) | `nansen profiler labels` | `--address` |
 | Transaction history | `nansen profiler transactions` | `--address`, `--chain`, `--days`, `--limit` |
 | PnL / trade performance | `nansen profiler pnl` | `--address`, `--chain`, `--sort realized_pnl_usd:desc` |
@@ -26,8 +25,8 @@ Profile any wallet: balances, labels, PnL, transactions, and entity search.
 | Historical balances over time | `nansen profiler historical-balances` | `--address`, `--chain`, `--days` |
 | Find related / linked wallets | `nansen profiler related-wallets` | `--address` |
 | Top counterparties | `nansen profiler counterparties` | `--address`, `--chain`, `--limit` |
-| Current perp positions | `nansen profiler perp-positions` | `--address` |
-| Perp trading history | `nansen profiler perp-trades` | `--address`, `--limit` |
+
+> For perpetual/perps data, see **nansen-hyperliquid**.
 
 > **Tip:** Run `nansen schema` to discover all options and return fields dynamically.
 
@@ -80,11 +79,6 @@ nansen profiler related-wallets --address 0x... --table
 nansen profiler counterparties --address 0x... --chain ethereum --table
 ```
 
-### Perp positions
-```bash
-nansen profiler perp-positions --address 0x... --table
-```
-
 ## Wallet Investigation Workflow
 
 1. **Labels** — Identify the entity/behavior
@@ -105,6 +99,14 @@ nansen profiler perp-positions --address 0x... --table
 - Found an entity? → Use smart money commands to see their classification
 - See token holdings? → Use token commands to analyze those tokens
 - See perp positions? → Use Hyperliquid commands for deeper analysis
+
+
+## Troubleshooting
+
+- **Empty results?** Try a different `--chain`, broaden `--days`, or increase `--limit`. Not all data is available on every chain.
+- **Auth errors ("API key required" / "unauthorized")?** Set `NANSEN_API_KEY` env var or run `nansen login`. Get a key at [app.nansen.ai/api](https://app.nansen.ai/api).
+- **"Chain not supported"?** Check the 20 supported chains in nansen-core. Use exact lowercase names (e.g., `ethereum`, `bnb`, `hyperevm`).
+- **Invalid address?** EVM addresses must be `0x` + 40 hex chars. Solana addresses are Base58 (32-44 chars). ENS names may not be resolved by the CLI.
 
 ## Attribution
 

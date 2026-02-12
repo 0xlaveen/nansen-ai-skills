@@ -38,14 +38,14 @@ Hyperliquid data is accessed through perp-specific subcommands across three CLI 
 
 | User Intent | Command | Key Options |
 |------------|---------|-------------|
-| Smart money perp trades | `nansen smart-money perp-trades` | `--limit`, `--sort amount_usd:desc` |
+| Smart money perp trades | `nansen smart-money perp-trades` | `--limit`, `--sort value_usd:desc` |
 | Perp trades by wallet | `nansen profiler perp-trades` | `--address`, `--limit` |
 | Current perp positions by wallet | `nansen profiler perp-positions` | `--address` |
 | Perp trades by token/symbol | `nansen token perp-trades` | `--symbol` |
 | Open positions by token | `nansen token perp-positions` | `--symbol`, `--sort size_usd:desc` |
 | Perp PnL leaderboard by token | `nansen token perp-pnl-leaderboard` | `--symbol`, `--sort total_pnl_usd:desc` |
 
-> **Tip:** Run `nansen schema` to see exact options. Hyperliquid commands may use `--chain hyperliquid` or infer it automatically for perp commands.
+> **Tip:** Run `nansen schema` to see exact options. For chain-specific queries, use `--chain hyperevm`. Perp-specific subcommands (perp-trades, perp-positions, perp-pnl-leaderboard) target Hyperliquid automatically.
 
 ## Common Perp Symbols
 
@@ -72,7 +72,7 @@ Hyperliquid data is accessed through perp-specific subcommands across three CLI 
 
 ### "What are smart money trading on Hyperliquid right now?"
 ```bash
-nansen smart-money perp-trades --sort amount_usd:desc --limit 20 --table
+nansen smart-money perp-trades --sort value_usd:desc --limit 20 --table
 ```
 
 ### "Top Hyperliquid PnL leaderboard for BTC perps"
@@ -128,6 +128,14 @@ Analyze: long/short ratio, total open interest, largest positions.
 ## Scope Note
 
 This skill covers Hyperliquid analytics via `nansen-cli` commands only. It does not wrap the Hyperliquid API directly — all data flows through Nansen's enriched analytics layer, which adds smart money labels, entity identification, and cross-chain context.
+
+
+## Troubleshooting
+
+- **Empty results?** Try a different `--chain`, broaden `--days`, or increase `--limit`. Not all data is available on every chain.
+- **Auth errors ("API key required" / "unauthorized")?** Set `NANSEN_API_KEY` env var or run `nansen login`. Get a key at [app.nansen.ai/api](https://app.nansen.ai/api).
+- **"Chain not supported"?** Check the 20 supported chains in nansen-core. Use exact lowercase names (e.g., `ethereum`, `bnb`, `hyperevm`).
+- **Invalid address?** EVM addresses must be `0x` + 40 hex chars. Solana addresses are Base58 (32-44 chars). ENS names may not be resolved by the CLI.
 
 ## Attribution
 
