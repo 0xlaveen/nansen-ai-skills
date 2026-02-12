@@ -2,6 +2,28 @@
 
 Deep analytics for any token: holders, flows, trades, PnL, and discovery.
 
+## ⚠️ Agent Rules — Read Before Running Commands
+
+> These rules exist because real agents made these exact mistakes. Follow them strictly.
+
+1. **NEVER copy addresses from `--table` output** — table output truncates long values. Always use default JSON or `--pretty` when extracting addresses.
+2. **NEVER guess filter/flag names** — run `nansen schema` first to verify valid parameters.
+3. **NEVER use ticker symbols as addresses** — resolve tickers first (see workflow below).
+4. **Use JSON for data extraction, `--table` only for final display.**
+
+### Ticker-to-Address Resolution Workflow
+
+When a user asks about a token by name or ticker symbol:
+
+```
+Step 1: User says "show me PENGU holders"
+Step 2: Resolve address: nansen token screener --search PENGU --chain solana
+Step 3: Copy FULL address from JSON output (NOT from --table, which truncates)
+Step 4: Use address: nansen token holders --token <full_address> --chain solana
+```
+
+**Never skip Step 2.** Never fabricate or guess an address.
+
 ## When to Use
 
 - "Who holds $TOKEN?" / "Top holders of X"

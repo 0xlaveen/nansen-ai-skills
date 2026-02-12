@@ -17,6 +17,14 @@ metadata:
 
 Track what institutional funds and profitable traders are doing onchain.
 
+## ⚠️ Agent Rules — Read Before Running Commands
+
+> These rules exist because real agents made these exact mistakes. Follow them strictly.
+
+1. **NEVER copy addresses from `--table` output** — table output truncates long values. Always use default JSON or `--pretty` when extracting addresses.
+2. **NEVER guess filter/flag names** — run `nansen schema` first to verify valid parameters before using `--filters`.
+3. **Use JSON for data extraction, `--table` only for final display.**
+
 ## When This Skill Activates
 
 - "What are smart money buying?"

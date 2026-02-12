@@ -17,6 +17,26 @@ metadata:
 
 Profile any wallet: balances, labels, PnL, transactions, and entity search.
 
+## ⚠️ Agent Rules — Read Before Running Commands
+
+> These rules exist because real agents made these exact mistakes. Follow them strictly.
+
+1. **NEVER copy addresses from `--table` output** — table output truncates long values. Always use default JSON or `--pretty` when extracting addresses.
+2. **NEVER guess filter/flag names** — run `nansen schema` first to verify valid parameters.
+3. **NEVER use ticker symbols as addresses** — resolve tickers first via `nansen token screener --search <SYMBOL> --chain <chain>`, then copy the FULL address from JSON output.
+4. **Use JSON for data extraction, `--table` only for final display.**
+
+### Ticker-to-Address Resolution Workflow
+
+If user provides a ticker instead of an address:
+
+```
+Step 1: User says "show me PENGU holders"
+Step 2: Resolve address: nansen token screener --search PENGU --chain solana
+Step 3: Copy FULL address from JSON output (NOT from --table, which truncates)
+Step 4: Use address in profiler commands: nansen profiler balance --address <full_address> --chain solana
+```
+
 ## When This Skill Activates
 
 - "Who is this wallet?" / "What does 0x... hold?"

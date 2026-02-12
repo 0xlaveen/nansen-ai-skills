@@ -17,6 +17,14 @@ metadata:
 
 View DeFi positions across protocols for any wallet.
 
+## ⚠️ Agent Rules — Read Before Running Commands
+
+> These rules exist because real agents made these exact mistakes. Follow them strictly.
+
+1. **NEVER copy addresses from `--table` output** — table output truncates long values. Always use default JSON or `--pretty` when extracting addresses.
+2. **NEVER guess filter/flag names** — run `nansen schema` first to verify valid parameters.
+3. **Use JSON for data extraction, `--table` only for final display.**
+
 ## When This Skill Activates
 
 - "Show DeFi positions for this wallet"

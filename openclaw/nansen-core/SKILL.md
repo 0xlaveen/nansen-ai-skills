@@ -60,13 +60,31 @@ Direct the user to run `nansen login` themselves and paste their API key when pr
 1. `NANSEN_API_KEY` environment variable (highest)
 2. `~/.nansen/config.json` (saved via `nansen login`)
 
+## ⚠️ Agent Rules — Read Before Running Commands
+
+> These rules exist because real agents made these exact mistakes. Follow them strictly.
+
+1. **NEVER copy addresses from `--table` output** — table output truncates long values like addresses. Always use default JSON or `--pretty` output when you need to extract full addresses, then use `--table` only for final user-facing display.
+
+2. **NEVER guess filter or flag names** — always run `nansen schema` to verify valid parameters before using `--filters`. If a filter field looks right but you have not confirmed it in the schema, it is wrong. **When unsure about ANY flag name, filter field, or parameter — run `nansen schema` first. Never guess.**
+
+3. **NEVER use ticker symbols as contract addresses** — the CLI requires contract addresses, not ticker symbols like "PENGU" or "PEPE". If the user gives a ticker, resolve it first:
+   ```bash
+   nansen token screener --search <SYMBOL> --chain <chain>
+   ```
+   Then copy the FULL `token_address` from the JSON output.
+
+4. **Use JSON output for data extraction, `--table` only for display** — when you need to extract addresses, IDs, or any values for use in subsequent commands, use default JSON or `--pretty` output. Use `--table` only when presenting final results to the user.
+
 ## Schema Introspection
 
 ```bash
 nansen schema
 ```
 
-Returns a complete JSON schema of every command, subcommand, option, and field. Use it when:
+Returns a complete JSON schema of every command, subcommand, option, and field. **This is the source of truth for all flag names, filter fields, and parameters. When unsure, run it first. Never guess.**
+
+Use it when:
 - You need to discover available options for a command
 - You're unsure which fields a command returns
 - You want to verify filter/sort options
