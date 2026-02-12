@@ -1,17 +1,19 @@
-# 🔍 Nansen OpenClaw Skills
+# 🔍 Nansen AI Skills
 
-Blockchain analytics powered by [Nansen](https://nansen.ai) for [OpenClaw](https://openclaw.ai) agents. Track smart money flows, profile wallets, analyze tokens, and monitor Hyperliquid perps — all through natural language.
+Blockchain analytics powered by [Nansen](https://nansen.ai) for AI coding agents. Track smart money flows, profile wallets, analyze tokens, and monitor Hyperliquid perps — all through natural language.
+
+Supports **[OpenClaw](https://openclaw.ai)** and **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)**.
 
 ## Skills
 
 | Skill | Description |
 |-------|-------------|
-| [**nansen-core**](nansen-core/SKILL.md) | 🔑 Auth, setup, schema introspection — install first |
-| [**nansen-smart-money**](nansen-smart-money/SKILL.md) | 🧠 Smart money flows, DEX trades, holdings, DCA strategies |
-| [**nansen-profiler**](nansen-profiler/SKILL.md) | 🔎 Wallet profiling — balances, labels, PnL, counterparties |
-| [**nansen-token**](nansen-token/SKILL.md) | 🪙 Token God Mode — holders, flows, screener, PnL leaderboards |
-| [**nansen-portfolio**](nansen-portfolio/SKILL.md) | 📊 DeFi portfolio positions across protocols |
-| [**nansen-hyperliquid**](nansen-hyperliquid/SKILL.md) | ⚡ Hyperliquid perpetual trading analytics |
+| **nansen-core** | 🔑 Auth, setup, schema introspection — install first |
+| **nansen-smart-money** | 🧠 Smart money flows, DEX trades, holdings, DCA strategies |
+| **nansen-profiler** | 🔎 Wallet profiling — balances, labels, PnL, counterparties |
+| **nansen-token** | 🪙 Token God Mode — holders, flows, screener, PnL leaderboards |
+| **nansen-portfolio** | 📊 DeFi portfolio positions across protocols |
+| **nansen-hyperliquid** | ⚡ Hyperliquid perpetual trading analytics |
 
 ## Quick Start
 
@@ -24,7 +26,9 @@ npm install -g nansen-cli
 Or run the setup script:
 
 ```bash
-bash scripts/setup.sh
+bash openclaw/scripts/setup.sh
+# or
+bash claude-code/scripts/setup.sh
 ```
 
 ### 2. Authenticate
@@ -39,15 +43,45 @@ nansen login
 
 Get your API key at **[app.nansen.ai/api](https://app.nansen.ai/api)**.
 
-### 3. Install Skills
-
-Copy skill folders into your OpenClaw skills directory. **nansen-core** is required; add whichever domain skills you need.
-
-### 4. Verify
+### 3. Verify
 
 ```bash
 nansen profiler search --query "Binance" --limit 1
 ```
+
+---
+
+## Install for OpenClaw
+
+Copy skill folders from `openclaw/` into your OpenClaw skills directory. **nansen-core** is required; add whichever domain skills you need.
+
+```
+openclaw/
+├── nansen-core/SKILL.md
+├── nansen-smart-money/SKILL.md
+├── nansen-profiler/SKILL.md
+├── nansen-token/SKILL.md
+├── nansen-portfolio/SKILL.md
+├── nansen-hyperliquid/SKILL.md
+└── scripts/setup.sh
+```
+
+## Install for Claude Code
+
+Copy `claude-code/CLAUDE.md` to your project root (or reference it in your Claude Code config). The sub-files provide detailed command guidance per domain.
+
+```
+claude-code/
+├── CLAUDE.md                  # Entry point — Claude Code reads this
+├── nansen-smart-money.md
+├── nansen-profiler.md
+├── nansen-token.md
+├── nansen-portfolio.md
+├── nansen-hyperliquid.md
+└── scripts/setup.sh
+```
+
+---
 
 ## Supported Chains (20)
 
@@ -59,22 +93,13 @@ nansen profiler search --query "Binance" --limit 1
 
 All skills wrap `nansen-cli` — no direct API calls. This gives you built-in caching, auto-retry with backoff, and schema introspection (`nansen schema`) for free.
 
-```
-nansen-core/SKILL.md          # Foundation (auth, global options, chains)
-nansen-smart-money/SKILL.md   # smart-money namespace
-nansen-profiler/SKILL.md      # profiler namespace
-nansen-token/SKILL.md         # token namespace
-nansen-portfolio/SKILL.md     # portfolio namespace
-nansen-hyperliquid/SKILL.md   # Cross-namespace perp commands
-scripts/setup.sh               # Install + auth verification
-```
-
 ## Links
 
 - [Nansen](https://nansen.ai) — Platform
 - [Nansen API Docs](https://docs.nansen.ai) — API documentation
 - [Get API Key](https://app.nansen.ai/api) — API key management
 - [OpenClaw](https://openclaw.ai) — Agent platform
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — Anthropic's coding agent
 
 ---
 
