@@ -41,7 +41,6 @@ Step 4: Use address in profiler commands: nansen profiler balance --address <ful
 | Transaction history | `nansen profiler transactions` | `--address`, `--chain`, `--days`, `--limit` |
 | PnL / trade performance | `nansen profiler pnl` | `--address`, `--chain`, `--sort realized_pnl_usd:desc` |
 | Summarized PnL metrics | `nansen profiler pnl-summary` | `--address`, `--chain` |
-| Search by entity name | `nansen profiler search` | `--query "name"` |
 | Historical balances over time | `nansen profiler historical-balances` | `--address`, `--chain`, `--days` |
 | Find related / linked wallets | `nansen profiler related-wallets` | `--address` |
 | Top counterparties | `nansen profiler counterparties` | `--address`, `--chain`, `--limit` |
@@ -62,11 +61,6 @@ Step 4: Use address in profiler commands: nansen profiler balance --address <ful
 ```bash
 nansen profiler labels --address 0x... --table
 nansen profiler balance --address 0x... --sort balance_usd:desc --limit 20 --table
-```
-
-### Find wallets for Wintermute
-```bash
-nansen profiler search --query "Wintermute" --table
 ```
 
 ### PnL for an address on Ethereum

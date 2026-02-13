@@ -47,7 +47,7 @@ Get a key manually at **[app.nansen.ai/api](https://app.nansen.ai/api)**.
 ### 3. Verify
 
 ```bash
-nansen profiler search --query "Binance" --limit 1
+nansen profiler balance --wallet 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 --chain ethereum --limit 1
 ```
 
 ---
