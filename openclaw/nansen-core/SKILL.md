@@ -37,7 +37,7 @@ npm install -g nansen-cli
 ### 2. Check if authenticated
 
 ```bash
-nansen profiler balance --wallet 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 --chain ethereum --limit 1 2>&1
+nansen profiler balance --address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 --chain ethereum --limit 1 2>&1
 ```
 
 If it returns JSON data → auth is good. If it mentions API key / unauthorized → needs setup.

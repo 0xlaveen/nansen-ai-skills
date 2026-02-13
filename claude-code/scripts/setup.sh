@@ -34,7 +34,7 @@ fi
 
 # 3. Check authentication
 echo -e "\n${BOLD}Checking authentication...${NC}"
-if nansen profiler balance --wallet 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 --chain ethereum --limit 1 &>/dev/null; then
+if nansen profiler balance --address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 --chain ethereum --limit 1 &>/dev/null; then
   echo -e "${GREEN}✓${NC} Authenticated and working!"
   echo -e "\n${GREEN}All set! Nansen skills are ready to use.${NC}"
   exit 0
