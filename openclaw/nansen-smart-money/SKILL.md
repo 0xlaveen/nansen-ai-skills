@@ -43,11 +43,11 @@ Requires **nansen-core** skill for auth. Verify with: `nansen schema`
 
 | User Intent | Command | Key Options |
 |------------|---------|-------------|
-| Smart money buying/selling, capital flows | `nansen smart-money netflow` | `--chain`, `--days`, `--sort net_flow_usd:desc` |
-| Real-time DEX trades by smart wallets | `nansen smart-money dex-trades` | `--chain`, `--limit`, `--sort value_usd:desc` |
-| What smart money currently holds | `nansen smart-money holdings` | `--chain`, `--sort value_usd:desc` |
-| Holdings over time / accumulation trends | `nansen smart-money historical-holdings` | `--chain`, `--days` |
-| Jupiter DCA strategies by smart wallets | `nansen smart-money dcas` | `--chain solana` |
+| Smart money buying/selling, capital flows | `nansen smart-money netflow` | `--chain`, `--chains`, `--limit`, `--labels`, `--sort`, `--filters` |
+| Real-time DEX trades by smart wallets | `nansen smart-money dex-trades` | `--chain`, `--chains`, `--limit`, `--labels`, `--sort`, `--filters` |
+| What smart money currently holds | `nansen smart-money holdings` | `--chain`, `--chains`, `--limit`, `--labels` |
+| Holdings over time / accumulation trends | `nansen smart-money historical-holdings` | `--chain`, `--chains`, `--days`, `--limit` |
+| Jupiter DCA strategies by smart wallets | `nansen smart-money dcas` | `--limit`, `--filters` |
 
 > For perpetual/perps data, see **nansen-hyperliquid**.
 
@@ -95,7 +95,7 @@ nansen smart-money holdings --chain bnb --sort balance_usd:desc --limit 20 --tab
 
 ### "Jupiter DCA strategies by smart wallets"
 ```bash
-nansen smart-money dcas --chain solana --table
+nansen smart-money dcas --limit 20 --table
 ```
 
 ## Interpretation Tips

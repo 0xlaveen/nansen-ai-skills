@@ -34,7 +34,7 @@ When a user asks about a token by name or ticker symbol:
 Step 1: User says "show me PENGU holders"
 Step 2: Resolve address: nansen token screener --search PENGU --chain solana
 Step 3: Copy FULL address from JSON output (NOT from --table, which truncates)
-Step 4: Use address: nansen token holders --token-address <full_address> --chain solana
+Step 4: Use address: nansen token holders --token <full_address> --chain solana
 ```
 
 **Never skip Step 2.** Never fabricate or guess an address.
@@ -57,15 +57,18 @@ Requires **nansen-core** skill for auth. Verify with: `nansen schema`
 
 | User Intent | Command | Key Options |
 |------------|---------|-------------|
-| Discover/filter tokens | `nansen token screener` | `--chain`, `--sort`, `--limit`, `--smart-money` |
-| Token holder breakdown | `nansen token holders` | `--token-address`, `--chain` |
-| Token flow metrics (in/out) | `nansen token flows` | `--token-address`, `--chain`, `--days` |
-| DEX trading activity | `nansen token dex-trades` | `--token-address`, `--chain`, `--limit` |
-| PnL leaderboard for a token | `nansen token pnl` | `--token-address`, `--chain` |
-| Recent buyers and sellers | `nansen token who-bought-sold` | `--token-address`, `--chain` |
-| Flow intelligence by label | `nansen token flow-intelligence` | `--token-address`, `--chain` |
-| Transfer history | `nansen token transfers` | `--token-address`, `--chain`, `--days` |
-| Jupiter DCA orders | `nansen token jup-dca` | `--token-address` (Solana) |
+| Discover/filter tokens | `nansen token screener` | `--chain`, `--timeframe` (5m/10m/1h/6h/24h/7d/30d), `--smart-money`, `--limit`, `--sort` |
+| Token holder breakdown | `nansen token holders` | `--token` (required), `--chain`, `--smart-money`, `--limit` |
+| Token flow metrics (in/out) | `nansen token flows` | `--token` (required), `--chain`, `--limit` |
+| DEX trading activity | `nansen token dex-trades` | `--token` (required), `--chain`, `--smart-money`, `--days`, `--limit` |
+| PnL leaderboard for a token | `nansen token pnl` | `--token` (required), `--chain`, `--days`, `--limit`, `--sort` |
+| Recent buyers and sellers | `nansen token who-bought-sold` | `--token` (required), `--chain`, `--limit` |
+| Flow intelligence by label | `nansen token flow-intelligence` | `--token` (required), `--chain`, `--limit` |
+| Transfer history | `nansen token transfers` | `--token` (required), `--chain`, `--days`, `--limit` |
+| Jupiter DCA orders | `nansen token jup-dca` | `--token` (required), `--limit` |
+| Perp trades by symbol | `nansen token perp-trades` | `--symbol` (required), `--days`, `--limit` |
+| Perp positions by symbol | `nansen token perp-positions` | `--symbol` (required), `--limit` |
+| Perp PnL leaderboard | `nansen token perp-pnl-leaderboard` | `--symbol` (required), `--days`, `--limit` |
 
 > For perpetual/perps data, see **nansen-hyperliquid**.
 
@@ -96,37 +99,37 @@ nansen token screener --chain ethereum --sort smart_money_count:desc --limit 20 
 
 ### "Top holders of $TOKEN"
 ```bash
-nansen token holders --token-address 0x... --chain ethereum --sort balance_usd:desc --limit 20 --table
+nansen token holders --token 0x... --chain ethereum --sort balance_usd:desc --limit 20 --table
 ```
 
 ### "Who's buying and selling $TOKEN?"
 ```bash
-nansen token who-bought-sold --token-address 0x... --chain ethereum --table
+nansen token who-bought-sold --token 0x... --chain ethereum --table
 ```
 
 ### "Token flows for $TOKEN over 7 days"
 ```bash
-nansen token flows --token-address 0x... --chain ethereum --days 7 --table
+nansen token flows --token 0x... --chain ethereum --days 7 --table
 ```
 
 ### "PnL leaderboard — who's profiting on $TOKEN?"
 ```bash
-nansen token pnl --token-address 0x... --chain ethereum --sort realized_pnl:desc --limit 20 --table
+nansen token pnl --token 0x... --chain ethereum --sort realized_pnl:desc --limit 20 --table
 ```
 
 ### "DEX trades for $TOKEN"
 ```bash
-nansen token dex-trades --token-address 0x... --chain ethereum --limit 30 --table
+nansen token dex-trades --token 0x... --chain ethereum --limit 30 --table
 ```
 
 ### "Flow intelligence — which labels are buying?"
 ```bash
-nansen token flow-intelligence --token-address 0x... --chain ethereum --table
+nansen token flow-intelligence --token 0x... --chain ethereum --table
 ```
 
 ### "Transfer history"
 ```bash
-nansen token transfers --token-address 0x... --chain ethereum --days 7 --limit 50 --table
+nansen token transfers --token 0x... --chain ethereum --days 7 --limit 50 --table
 ```
 
 ## Token Discovery Workflow

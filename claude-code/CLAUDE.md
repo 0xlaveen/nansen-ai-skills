@@ -74,15 +74,66 @@ Run `nansen schema` to discover all commands, options, and return fields. Use it
 
 | Option | Purpose | Example |
 |--------|---------|---------|
+| `--pretty` | Pretty-print JSON | `nansen smart-money netflow --pretty` |
 | `--table` | Tabular output for display | `nansen smart-money netflow --table` |
 | `--fields` | Select specific columns | `--fields token_symbol,net_flow_usd` |
-| `--chain` | Filter by blockchain | `--chain ethereum` |
-| `--chains` | Multiple chains | `--chains ethereum,solana` |
-| `--limit` | Max results | `--limit 20` |
-| `--sort` | Sort field + direction | `--sort net_flow_usd:desc` |
-| `--days` | Date range (days back) | `--days 7` |
-| `--filters` | Advanced JSON filter | `--filters '{"min_usd": 10000}'` |
-| `--pretty` | Pretty-print JSON | |
+| `--no-retry` | Disable auto-retry | |
+| `--retries` | Retry count | `--retries 5` |
+
+> **Note:** Options like `--chain`, `--chains`, `--limit`, `--sort`, `--days`, `--filters`, `--labels`, `--smart-money` are per-command — not all commands support all of them. Run `nansen schema` to see which options each command accepts.
+
+## Full CLI Schema Reference (v1.1.0)
+
+This is the definitive reference for all commands and their flags. Use `nansen schema` to verify dynamically.
+
+### smart-money
+| Command | Options |
+|---------|---------|
+| `smart-money netflow` | `--chain`, `--chains`, `--limit`, `--labels`, `--sort`, `--filters` |
+| `smart-money dex-trades` | `--chain`, `--chains`, `--limit`, `--labels`, `--sort`, `--filters` |
+| `smart-money perp-trades` | `--limit`, `--sort`, `--filters` *(no --chain)* |
+| `smart-money holdings` | `--chain`, `--chains`, `--limit`, `--labels` |
+| `smart-money dcas` | `--limit`, `--filters` |
+| `smart-money historical-holdings` | `--chain`, `--chains`, `--days`, `--limit` |
+
+### profiler (all require `--address` except search)
+| Command | Options |
+|---------|---------|
+| `profiler balance` | `--address` (required), `--chain`, `--entity` |
+| `profiler labels` | `--address` (required), `--chain` |
+| `profiler transactions` | `--address` (required), `--chain`, `--limit`, `--days` |
+| `profiler pnl` | `--address` (required), `--chain` |
+| `profiler search` | `--query` (required), `--limit` |
+| `profiler historical-balances` | `--address` (required), `--chain`, `--days` |
+| `profiler related-wallets` | `--address` (required), `--chain`, `--limit` |
+| `profiler counterparties` | `--address` (required), `--chain`, `--days` |
+| `profiler pnl-summary` | `--address` (required), `--chain`, `--days` |
+| `profiler perp-positions` | `--address` (required), `--limit` |
+| `profiler perp-trades` | `--address` (required), `--days`, `--limit` |
+
+### token (uses `--token` for spot, `--symbol` for perps)
+| Command | Options |
+|---------|---------|
+| `token screener` | `--chain`, `--timeframe` (5m/10m/1h/6h/24h/7d/30d), `--smart-money`, `--limit`, `--sort` |
+| `token holders` | `--token` (required), `--chain`, `--smart-money`, `--limit` |
+| `token flows` | `--token` (required), `--chain`, `--limit` |
+| `token dex-trades` | `--token` (required), `--chain`, `--smart-money`, `--days`, `--limit` |
+| `token pnl` | `--token` (required), `--chain`, `--days`, `--limit`, `--sort` |
+| `token who-bought-sold` | `--token` (required), `--chain`, `--limit` |
+| `token flow-intelligence` | `--token` (required), `--chain`, `--limit` |
+| `token transfers` | `--token` (required), `--chain`, `--days`, `--limit` |
+| `token jup-dca` | `--token` (required), `--limit` |
+| `token perp-trades` | `--symbol` (required), `--days`, `--limit` |
+| `token perp-positions` | `--symbol` (required), `--limit` |
+| `token perp-pnl-leaderboard` | `--symbol` (required), `--days`, `--limit` |
+
+### portfolio
+| Command | Options |
+|---------|---------|
+| `portfolio defi` | `--wallet` (required) |
+
+### Smart Money Labels
+Fund, Smart Trader, 30D Smart Trader, 90D Smart Trader, 180D Smart Trader, Smart HL Perps Trader
 
 ## Supported Chains (20)
 

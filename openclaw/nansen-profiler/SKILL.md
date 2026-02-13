@@ -55,14 +55,17 @@ Requires **nansen-core** skill for auth. Verify with: `nansen schema`
 
 | User Intent | Command | Key Options |
 |------------|---------|-------------|
-| Current token holdings | `nansen profiler balance` | `--address`, `--chain`, `--sort balance_usd:desc` |
-| Wallet labels (entity, behavior) | `nansen profiler labels` | `--address` |
-| Transaction history | `nansen profiler transactions` | `--address`, `--chain`, `--days`, `--limit` |
-| PnL / trade performance | `nansen profiler pnl` | `--address`, `--chain`, `--sort realized_pnl_usd:desc` |
-| Summarized PnL metrics | `nansen profiler pnl-summary` | `--address`, `--chain` |
-| Historical balances over time | `nansen profiler historical-balances` | `--address`, `--chain`, `--days` |
-| Find related / linked wallets | `nansen profiler related-wallets` | `--address` |
-| Top counterparties | `nansen profiler counterparties` | `--address`, `--chain`, `--limit` |
+| Current token holdings | `nansen profiler balance` | `--address` (required), `--chain`, `--entity` |
+| Wallet labels (entity, behavior) | `nansen profiler labels` | `--address` (required), `--chain` |
+| Transaction history | `nansen profiler transactions` | `--address` (required), `--chain`, `--limit`, `--days` |
+| PnL / trade performance | `nansen profiler pnl` | `--address` (required), `--chain` |
+| Summarized PnL metrics | `nansen profiler pnl-summary` | `--address` (required), `--chain`, `--days` |
+| Search entities by name | `nansen profiler search` | `--query` (required), `--limit` |
+| Historical balances over time | `nansen profiler historical-balances` | `--address` (required), `--chain`, `--days` |
+| Find related / linked wallets | `nansen profiler related-wallets` | `--address` (required), `--chain`, `--limit` |
+| Top counterparties | `nansen profiler counterparties` | `--address` (required), `--chain`, `--days` |
+| Perp positions by wallet | `nansen profiler perp-positions` | `--address` (required), `--limit` |
+| Perp trades by wallet | `nansen profiler perp-trades` | `--address` (required), `--days`, `--limit` |
 
 > For perpetual/perps data, see **nansen-hyperliquid**.
 
@@ -110,6 +113,11 @@ nansen profiler related-wallets --address 0x... --table
 ### "Top counterparties"
 ```bash
 nansen profiler counterparties --address 0x... --chain ethereum --table
+```
+
+### "Find wallets for Wintermute"
+```bash
+nansen profiler search --query Wintermute --limit 10 --table
 ```
 
 ## Wallet Investigation Workflow

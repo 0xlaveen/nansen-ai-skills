@@ -43,9 +43,8 @@ Requires **nansen-core** skill for auth. Verify with: `nansen schema`
 
 | User Intent | Command | Key Options |
 |------------|---------|-------------|
-| All DeFi positions for a wallet | `nansen portfolio defi` | `--address`, `--chain` |
-| Multi-chain DeFi overview | `nansen portfolio defi` | `--address`, `--chains ethereum,base,arbitrum` |
-| Largest positions only | `nansen portfolio defi` | `--address`, `--sort value_usd:desc`, `--limit` |
+| All DeFi positions for a wallet | `nansen portfolio defi` | `--wallet` (required) |
+| Filter by chain | `nansen portfolio defi` | `--wallet` (required) + chain in query |
 
 This skill wraps a single powerful command that returns all DeFi positions across protocols.
 
@@ -79,27 +78,27 @@ This skill wraps a single powerful command that returns all DeFi positions acros
 
 ### "Show DeFi positions for this wallet on Ethereum"
 ```bash
-nansen portfolio defi --address 0x... --chain ethereum --table
+nansen portfolio defi --wallet 0x... --chain ethereum --table
 ```
 
 ### "DeFi portfolio across all chains"
 ```bash
-nansen portfolio defi --address 0x... --table
+nansen portfolio defi --wallet 0x... --table
 ```
 
 ### "What protocols is this wallet using on Base?"
 ```bash
-nansen portfolio defi --address 0x... --chain base --table
+nansen portfolio defi --wallet 0x... --chain base --table
 ```
 
 ### "Show only the largest positions"
 ```bash
-nansen portfolio defi --address 0x... --sort value_usd:desc --limit 10 --table
+nansen portfolio defi --wallet 0x... --sort value_usd:desc --limit 10 --table
 ```
 
 ### "Is this wallet at risk of liquidation?"
 ```bash
-nansen portfolio defi --address 0x... --chain ethereum
+nansen portfolio defi --wallet 0x... --chain ethereum
 ```
 Look for `borrowing` positions with low `health_factor` (< 1.2 is risky, < 1.05 is critical).
 
@@ -108,10 +107,10 @@ Look for `borrowing` positions with low `health_factor` (< 1.2 is risky, < 1.05 
 ### Complete DeFi Portfolio Review
 ```bash
 # 1. Get all DeFi positions
-nansen portfolio defi --address 0x... --chains ethereum,base,arbitrum,optimism --sort value_usd:desc
+nansen portfolio defi --wallet 0x... --chains ethereum,base,arbitrum,optimism --sort value_usd:desc
 
 # 2. Complement with token balances (from profiler)
-nansen profiler balance --address 0x... --chains ethereum,base,arbitrum --sort value_usd:desc
+nansen profiler balance --wallet 0x... --chains ethereum,base,arbitrum --sort value_usd:desc
 ```
 Present: total DeFi value, breakdown by protocol, breakdown by position type, any health factor warnings for borrows.
 

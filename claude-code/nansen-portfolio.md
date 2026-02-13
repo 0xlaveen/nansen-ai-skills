@@ -24,9 +24,8 @@ View DeFi positions across protocols for any wallet.
 
 | User Intent | Command | Key Options |
 |------------|---------|-------------|
-| All DeFi positions for a wallet | `nansen portfolio defi` | `--address`, `--chain` |
-| Multi-chain DeFi overview | `nansen portfolio defi` | `--address`, `--chains ethereum,base,arbitrum` |
-| Largest positions only | `nansen portfolio defi` | `--address`, `--sort value_usd:desc`, `--limit` |
+| All DeFi positions for a wallet | `nansen portfolio defi` | `--wallet` (required) |
+| Filter by chain | `nansen portfolio defi` | `--wallet` (required) + chain in query |
 
 ## Position Types
 
@@ -56,37 +55,37 @@ View DeFi positions across protocols for any wallet.
 
 ### DeFi positions on Ethereum
 ```bash
-nansen portfolio defi --address 0x... --chain ethereum --table
+nansen portfolio defi --wallet 0x... --chain ethereum --table
 ```
 
 ### DeFi portfolio across all chains
 ```bash
-nansen portfolio defi --address 0x... --table
+nansen portfolio defi --wallet 0x... --table
 ```
 
 ### Protocols used on Base
 ```bash
-nansen portfolio defi --address 0x... --chain base --table
+nansen portfolio defi --wallet 0x... --chain base --table
 ```
 
 ### Largest positions only
 ```bash
-nansen portfolio defi --address 0x... --sort value_usd:desc --limit 10 --table
+nansen portfolio defi --wallet 0x... --sort value_usd:desc --limit 10 --table
 ```
 
 ### Liquidation risk check
 ```bash
-nansen portfolio defi --address 0x... --chain ethereum
+nansen portfolio defi --wallet 0x... --chain ethereum
 ```
 Look for `borrowing` positions with low `health_factor` (< 1.2 is risky, < 1.05 is critical).
 
 ### Complete DeFi Portfolio Review
 ```bash
 # 1. Get all DeFi positions
-nansen portfolio defi --address 0x... --chains ethereum,base,arbitrum,optimism --sort value_usd:desc
+nansen portfolio defi --wallet 0x... --chains ethereum,base,arbitrum,optimism --sort value_usd:desc
 
 # 2. Complement with token balances
-nansen profiler balance --address 0x... --chains ethereum,base,arbitrum --sort value_usd:desc
+nansen profiler balance --wallet 0x... --chains ethereum,base,arbitrum --sort value_usd:desc
 ```
 
 ## Output Formatting

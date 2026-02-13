@@ -46,12 +46,12 @@ Hyperliquid data is accessed through perp-specific subcommands across three CLI 
 
 | User Intent | Command | Key Options |
 |------------|---------|-------------|
-| Smart money perp trades | `nansen smart-money perp-trades` | `--limit`, `--sort value_usd:desc` |
-| Perp trades by wallet | `nansen profiler perp-trades` | `--address`, `--limit` |
-| Current perp positions by wallet | `nansen profiler perp-positions` | `--address` |
-| Perp trades by token/symbol | `nansen token perp-trades` | `--symbol` |
-| Open positions by token | `nansen token perp-positions` | `--symbol`, `--sort size_usd:desc` |
-| Perp PnL leaderboard by token | `nansen token perp-pnl-leaderboard` | `--symbol`, `--sort total_pnl_usd:desc` |
+| Smart money perp trades | `nansen smart-money perp-trades` | `--limit`, `--sort`, `--filters` *(no --chain)* |
+| Perp trades by wallet | `nansen profiler perp-trades` | `--address` (required), `--days`, `--limit` |
+| Current perp positions by wallet | `nansen profiler perp-positions` | `--address` (required), `--limit` |
+| Perp trades by symbol | `nansen token perp-trades` | `--symbol` (required), `--days`, `--limit` |
+| Open positions by symbol | `nansen token perp-positions` | `--symbol` (required), `--limit` |
+| Perp PnL leaderboard by symbol | `nansen token perp-pnl-leaderboard` | `--symbol` (required), `--days`, `--limit` |
 
 > **Tip:** Run `nansen schema` to see exact options. For chain-specific queries, use `--chain hyperevm`. Perp-specific subcommands (perp-trades, perp-positions, perp-pnl-leaderboard) target Hyperliquid automatically.
 
