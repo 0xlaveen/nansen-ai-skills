@@ -43,9 +43,13 @@ fi
 # Not authenticated
 echo -e "${YELLOW}✗ Not authenticated${NC}\n"
 echo -e "To authenticate, choose one option:\n"
-echo -e "  ${BOLD}Option A${NC} — Environment variable (recommended for agents):"
+echo -e "  ${BOLD}Option A${NC} — Agent Setup Page (recommended):"
+echo -e "    1. Visit ${BOLD}https://app.nansen.ai/auth/agent-setup${NC}"
+echo -e "    2. Sign in with your Nansen account"
+echo -e "    3. Copy the message shown"
+echo -e "    4. Paste it back to your agent\n"
+echo -e "  ${BOLD}Option B${NC} — Environment variable:"
 echo -e "    export NANSEN_API_KEY=nsk_your_key_here\n"
-echo -e "  ${BOLD}Option B${NC} — Interactive login:"
+echo -e "  ${BOLD}Option C${NC} — Interactive login:"
 echo -e "    nansen login\n"
-echo -e "Get your API key at: ${BOLD}https://app.nansen.ai/api${NC}"
 exit 1
