@@ -15,7 +15,7 @@ Supports **[OpenClaw](https://openclaw.ai)** and **[Claude Code](https://docs.an
 | **nansen-portfolio** | 📊 DeFi portfolio positions across protocols |
 | **nansen-hyperliquid** | ⚡ Hyperliquid perpetual trading analytics |
 
-## Quick Start
+## Get Started
 
 ### 1. Install nansen-cli
 
@@ -23,25 +23,26 @@ Supports **[OpenClaw](https://openclaw.ai)** and **[Claude Code](https://docs.an
 npm install -g nansen-cli
 ```
 
-Or run the setup script:
+### 2. Set up your API key
+
+1. Visit **[app.nansen.ai/auth/agent-setup](https://app.nansen.ai/auth/agent-setup)**
+2. Sign in with your Nansen account
+3. Copy the message shown
+4. Paste it back to your agent
+
+The agent will extract and save your API key automatically.
+
+**Fallback options:**
 
 ```bash
-bash openclaw/scripts/setup.sh
-# or
-bash claude-code/scripts/setup.sh
-```
-
-### 2. Authenticate
-
-```bash
-# Option A: Environment variable (recommended for agents)
+# Environment variable (manual)
 export NANSEN_API_KEY=nsk_your_key_here
 
-# Option B: Interactive login
+# Interactive login
 nansen login
 ```
 
-Get your API key at **[app.nansen.ai/api](https://app.nansen.ai/api)**.
+Get a key manually at **[app.nansen.ai/api](https://app.nansen.ai/api)**.
 
 ### 3. Verify
 

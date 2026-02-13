@@ -18,15 +18,25 @@ bash claude-code/scripts/setup.sh
 
 ### Authenticate
 
+**Recommended — Agent Setup Page:**
+
+Direct the user to visit **[app.nansen.ai/auth/agent-setup](https://app.nansen.ai/auth/agent-setup)**. They sign in with their Nansen account, an API key is auto-generated, and they'll see a copyable message to paste back. Extract the API key and save it:
+
 ```bash
-# Option A: Environment variable (recommended)
+export NANSEN_API_KEY=nsk_...
+```
+
+**Fallback options:**
+
+```bash
+# Environment variable (manual)
 export NANSEN_API_KEY=nsk_your_key_here
 
-# Option B: Interactive login
+# Interactive login
 nansen login
 ```
 
-Get your API key at **[app.nansen.ai/api](https://app.nansen.ai/api)**.
+Get a key manually at **[app.nansen.ai/api](https://app.nansen.ai/api)**.
 
 ### Verify
 

@@ -44,17 +44,23 @@ If it returns JSON data → auth is good. If it mentions API key / unauthorized 
 
 ### 3. Authenticate
 
-**Option A — Environment variable (recommended for agents):**
+**Recommended — Agent Setup Page:**
+
+Direct the user to visit **https://app.nansen.ai/auth/agent-setup**. They sign in with their Nansen account, an API key is auto-generated, and they'll see a copyable message to paste back to you. Extract the API key from their message and save it:
+
 ```bash
 export NANSEN_API_KEY=nsk_...
 ```
 
-**Option B — Interactive login:**
-Direct the user to run `nansen login` themselves and paste their API key when prompted.
+Save it as a persistent environment variable so it survives restarts.
 
-**Getting an API key:** https://app.nansen.ai/api
+**Fallback options:**
 
-> **⚠️ Never ask users to paste API keys in chat.** Direct them to run commands in their terminal or set environment variables.
+- **Environment variable:** User manually sets `NANSEN_API_KEY=nsk_...`
+- **Interactive login:** `nansen login`
+- **Get a key manually:** https://app.nansen.ai/api
+
+> **⚠️ Never ask users to paste API keys in chat.** Direct them to the setup page or to set environment variables.
 
 ### Auth Priority Order
 1. `NANSEN_API_KEY` environment variable (highest)
