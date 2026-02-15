@@ -54,7 +54,8 @@ User query
 | "Set up Nansen" | nansen-core | Check auth |
 | "Screen tokens on Solana" | nansen-token | `nansen token screener` |
 | "Fund flows on Base" | nansen-smart-money | `nansen smart-money netflow` |
-| "PnL for this wallet" | nansen-profiler | `nansen profiler historical-balances` (note: `profiler pnl` is currently unavailable) |
+| "PnL for this wallet" | nansen-profiler | `nansen profiler pnl-summary` (note: `profiler pnl` returns 404, use pnl-summary) |
+| "Search for entity" | nansen-profiler | `nansen profiler search --query "name"` |
 | "Who's long BTC?" | nansen-hyperliquid | `nansen token perp-positions` |
 
 ## Overlap Resolution

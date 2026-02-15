@@ -38,19 +38,26 @@ nansen token screener --search <SYMBOL> --chain <chain>
 | Holder breakdown | `token holders` | `--token` (req), `--chain`, `--smart-money`, `--limit` | ✅ |
 | DEX trades | `token dex-trades` | `--token` (req), `--chain`, `--smart-money`, `--days`, `--limit` | ✅ |
 | PnL leaderboard | `token pnl` | `--token` (req), `--chain`, `--days`, `--limit`, `--sort` | ✅ |
-| Transfers | `token transfers` | `--token` (req), `--chain`, `--days`, `--limit` | ✅ |
+| Transfers | `token transfers` | `--token` (req), `--chain`, `--days`, `--limit`, `--from`, `--to` | ✅ |
 | Flow metrics | `token flows` | `--token` (req), `--chain`, `--date` (req) | ⚠️ needs `--date` |
 | Buyers/sellers | `token who-bought-sold` | `--token` (req), `--chain`, `--date` (req) | ⚠️ needs `--date` |
-| Flow intelligence | `token flow-intelligence` | `--token` (req), `--chain`, `--limit` | ⚠️ CLI bug (pagination) |
+| Flow intelligence | `token flow-intelligence` | `--token` (req), `--chain`, `--days` | ✅ |
 | Jupiter DCA | `token jup-dca` | `--token` (req), `--limit` | ✅ (Solana only) |
 
 > Perp commands (`perp-trades`, `perp-positions`, `perp-pnl-leaderboard`) use `--symbol` instead of `--token`. See **nansen-hyperliquid**.
 
 ### ⚠️ Known Issues
 
-- **`token flows`** and **`token who-bought-sold`** require `--date '{"from": "YYYY-MM-DD", "to": "YYYY-MM-DD"}'` (undocumented in schema). Without it, the API returns an error.
-- **`token flow-intelligence`** — CLI sends invalid `pagination` field; may fail.
+- **`token flows`** and **`token who-bought-sold`** require `--date '{"from": "YYYY-MM-DD", "to": "YYYY-MM-DD"}'` — without it, the API returns an error.
 - **`token jup-dca`** — Solana only. Use a Solana token address, not EVM.
+
+### Response Field Notes (actual API vs schema)
+
+- **`token screener`** returns: `buy_volume`, `sell_volume`, `volume`, `netflow`, `price_usd`, `price_change`, `market_cap_usd`, `fdv`, `liquidity`, `token_age_days`, etc. (NOT `holder_count`/`smart_money_holders`)
+- **`token dex-trades`** returns: `action`, `block_timestamp`, `estimated_swap_price_usd`, `estimated_value_usd`, `token_address`, `token_amount`, `traded_token_address`, `trader_address`, `trader_address_label`, `transaction_hash` (NOT `tx_hash`/`wallet_address`/`side`)
+- **`token pnl`** returns: `trader_address`, `trader_address_label`, `pnl_usd_realised`, `pnl_usd_unrealised`, `pnl_usd_total`, `roi_percent_*`, `holding_amount`, `nof_trades` (NOT `wallet_address`/`labels`)
+- **`token transfers`** returns: `from_address`, `from_address_label`, `to_address`, `to_address_label`, `transfer_amount`, `transfer_value_usd`, `transaction_hash`, `block_timestamp` (NOT `tx_hash`/`from`/`to`)
+- **`token flow-intelligence`** returns single object with `*_net_flow_usd`, `*_avg_flow_usd`, `*_wallet_count` for each label group (public_figure, top_pnl, whale, smart_trader, exchange, fresh_wallets)
 
 ## Examples
 
@@ -58,8 +65,8 @@ nansen token screener --search <SYMBOL> --chain <chain>
 # Screen tokens on Ethereum by smart money
 nansen token screener --chain ethereum --sort smart_money_count:desc --limit 20 --table
 
-# Top WETH holders
-nansen token holders --token 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 --chain ethereum --limit 20 --table
+# Top WETH holders (smart money only)
+nansen token holders --token 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 --chain ethereum --smart-money --limit 20 --table
 
 # Token flows (--date is required!)
 nansen token flows --token 0x... --chain ethereum --date '{"from": "2026-02-01", "to": "2026-02-15"}' --table
@@ -69,6 +76,9 @@ nansen token who-bought-sold --token 0x... --chain ethereum --date '{"from": "20
 
 # PnL leaderboard
 nansen token pnl --token 0x... --chain ethereum --sort pnl_usd_realised:desc --limit 20 --table
+
+# Flow intelligence by label
+nansen token flow-intelligence --token 0x... --chain ethereum --days 7
 ```
 
 ## Discovery Workflow

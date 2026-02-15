@@ -20,6 +20,7 @@ Profile any wallet: balances, labels, PnL, transactions, and counterparties.
 - "Who is this wallet?" / "What does 0x... hold?"
 - "Show PnL for this address"
 - "Transaction history" / "Related wallets" / "Counterparties"
+- "Search for entity" / "Find wallet by name"
 
 ## Command Routing
 
@@ -30,23 +31,31 @@ Profile any wallet: balances, labels, PnL, transactions, and counterparties.
 | Transactions | `profiler transactions` | `--address` (req), `--chain`, `--date` (req), `--limit` | ⚠️ needs `--date` |
 | Historical balances | `profiler historical-balances` | `--address` (req), `--chain`, `--days` | ✅ |
 | Counterparties | `profiler counterparties` | `--address` (req), `--chain`, `--days` | ✅ |
+| Related wallets | `profiler related-wallets` | `--address` (req), `--chain`, `--limit` | ✅ |
+| PnL summary | `profiler pnl-summary` | `--address` (req), `--chain`, `--days` | ✅ |
 | Perp trades | `profiler perp-trades` | `--address` (req), `--days`, `--limit` | ✅ |
+| Perp positions | `profiler perp-positions` | `--address` (req) | ✅ (fixed: no --limit) |
+| Entity search | `profiler search` | `--query` (req), `--limit` | ✅ |
 | PnL | `profiler pnl` | — | ⛔ Currently unavailable (404) |
-| PnL summary | `profiler pnl-summary` | `--address` (req), `--chain`, `--days` | ⚠️ CLI bug (sends invalid field) |
-| Entity search | `profiler search` | — | ⛔ Currently unavailable (404) |
-| Related wallets | `profiler related-wallets` | `--address` (req), `--chain`, `--limit` | ⚠️ CLI bug (sends invalid field) |
-| Perp positions | `profiler perp-positions` | `--address` (req), `--limit` | ⚠️ CLI bug (sends invalid field) |
 
 ### ⚠️ Known Issues
 
-- **`profiler pnl`** and **`profiler search`** return 404 — do not use these commands.
-- **`profiler transactions`** requires `--date '{"from": "YYYY-MM-DD", "to": "YYYY-MM-DD"}'` (undocumented in schema). The `--days` option alone does NOT work.
-- **`profiler related-wallets`**, **`profiler pnl-summary`** — CLI sends invalid `filters` field; may fail.
-- **`profiler perp-positions`** — CLI sends invalid `pagination` field; may fail.
+- **`profiler pnl`** returns 404 — use `profiler pnl-summary` instead.
+- **`profiler transactions`** requires `--date '{"from": "YYYY-MM-DD", "to": "YYYY-MM-DD"}'` — the `--days` option alone does NOT work.
+
+### Response Field Notes
+
+- **`profiler labels`** returns: `label`, `category`, `definition`, `fullname`, `smEarnedDate` (not `label_type`/`label_subtype` as schema suggests)
+- **`profiler historical-balances`** returns: `block_timestamp`, `chain`, `token_address`, `token_amount`, `token_symbol`, `value_usd` (not `date`/`balance`/`balance_usd`)
+- **`profiler pnl-summary`** returns top-level fields: `top5_tokens`, `traded_token_count`, `traded_times`, `realized_pnl_usd`, `realized_pnl_percent`, `win_rate`
 
 ## Examples
 
 ```bash
+# Search for an entity by name
+nansen profiler search --query "Vitalik"
+nansen profiler search --query "Binance"
+
 # Who is this wallet?
 nansen profiler labels --address 0x... --table
 nansen profiler balance --address 0x... --sort value_usd:desc --limit 20 --table
@@ -57,13 +66,22 @@ nansen profiler historical-balances --address 0x... --chain ethereum --days 30 -
 # Counterparties
 nansen profiler counterparties --address 0x... --chain ethereum --table
 
+# Related wallets
+nansen profiler related-wallets --address 0x... --chain ethereum --limit 10 --table
+
+# PnL summary
+nansen profiler pnl-summary --address 0x... --chain ethereum --days 30
+
 # Transactions (--date is required!)
 nansen profiler transactions --address 0x... --chain ethereum --date '{"from": "2026-01-01", "to": "2026-02-15"}' --limit 20 --table
+
+# Perp positions (no --limit supported)
+nansen profiler perp-positions --address 0x...
 ```
 
 ## Investigation Workflow
 
-1. **Labels** → identity  2. **Balance** → current holdings  3. **Historical Balances** → trends  4. **Counterparties** → interactions
+1. **Search** → find entity  2. **Labels** → identity  3. **Balance** → current holdings  4. **Historical Balances** → trends  5. **Counterparties** → interactions
 
 ## Ticker Resolution
 
