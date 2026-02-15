@@ -73,6 +73,17 @@ This is the **source of truth** for all commands, options, and return fields.
 - **Credits**: API calls consume credits. Smart Money endpoints cost 5 credits each. Most other endpoints cost 1 credit. Label lookups cost 500 credits. Check usage at `app.nansen.ai/api?tab=usage-analytics`.
 - **Plans**: Pro ($49/mo) gets 1,000 starter credits + can buy more. Free gets 100 one-time credits with limited endpoints.
 
+## MCP-Only Tools (Not available via CLI or REST API)
+
+These tools exist only in the Nansen MCP server (not accessible via CLI or direct REST):
+- **`token_ohlcv`** — OHLCV candlestick data for a token
+- **`token_quant_scores`** — Quantitative scoring (momentum, volatility, etc.)
+- **`nansen_score_top_tokens`** — Top tokens ranked by Nansen Score
+- **`growth_chain_rank`** — Chain growth/activity rankings
+- **`transaction_lookup`** — Look up a specific transaction by hash
+
+To use these, connect via MCP. See [docs.nansen.ai](https://docs.nansen.ai).
+
 ## Error Handling
 
 | Error | Fix |

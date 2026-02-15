@@ -91,6 +91,29 @@ nansen token flow-intelligence --token 0x... --chain ethereum --days 7
 - Example response: `references/examples/token-holders.json`
 - Cached schema: `references/schema.json`
 
+## API-Only Endpoints (No CLI Command)
+
+These endpoints work via direct API call but have no CLI command:
+
+### Token Information (`/api/v1/tgm/token-information`)
+Detailed token metadata + spot metrics (volume, buys/sells, liquidity, holders).
+```bash
+curl -s -X POST -H "apikey: $NANSEN_API_KEY" -H "Content-Type: application/json" \
+  -d '{"token_address":"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2","chain":"ethereum","timeframe":"1d"}' \
+  "https://api.nansen.ai/api/v1/tgm/token-information"
+```
+**Params:** `token_address` (req), `chain` (req), `timeframe` (req: `5m`|`1h`|`6h`|`12h`|`1d`|`7d`)
+**Returns:** name, symbol, logo, market_cap, fdv, supply, spot_metrics (volume, buys/sells, liquidity, holders)
+
+## MCP-Only Tools (Not available via CLI or REST API)
+
+These tools exist only in the Nansen MCP server:
+- **`token_ohlcv`** — OHLCV candlestick data for a token
+- **`token_quant_scores`** — Quantitative scoring for a token (momentum, volatility, etc.)
+- **`nansen_score_top_tokens`** — Top tokens ranked by Nansen Score
+
+To use these, connect via MCP (see [docs.nansen.ai](https://docs.nansen.ai)).
+
 ## Attribution
 
 > 📊 Data by [Nansen](https://nansen.ai)

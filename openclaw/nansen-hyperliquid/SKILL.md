@@ -60,7 +60,21 @@ These Hyperliquid endpoints exist in the Nansen API but have **no CLI command ye
 - **Perp Screener** (`/api/v1/perp-screener`) — Screen perp contracts by volume, OI, funding, smart money activity
 - **Perp Leaderboard** (`/api/v1/perp-leaderboard`) — Global Hyperliquid trader leaderboard by PnL/ROI over a date range
 
-To use these, call the API directly (not via CLI).
+### Direct API Examples
+
+```bash
+# Perp Leaderboard — top traders by PnL over a date range
+curl -s -X POST -H "apikey: $NANSEN_API_KEY" -H "Content-Type: application/json" \
+  -d '{"date":{"from":"2026-02-01","to":"2026-02-15"}}' \
+  "https://api.nansen.ai/api/v1/perp-leaderboard"
+# Returns: trader_address, trader_address_label, total_pnl, roi, account_value
+
+# Perp Screener — screen perp contracts by volume, OI, funding
+curl -s -X POST -H "apikey: $NANSEN_API_KEY" -H "Content-Type: application/json" \
+  -d '{"date":{"from":"2026-02-01","to":"2026-02-15"}}' \
+  "https://api.nansen.ai/api/v1/perp-screener"
+# Returns: token_symbol, volume, buy_volume, sell_volume, buy_sell_pressure, trader_count, mark_price, funding, open_interest
+```
 
 ## Investigation Flow
 
