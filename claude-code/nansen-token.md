@@ -2,146 +2,54 @@
 
 Deep analytics for any token: holders, flows, trades, PnL, and discovery.
 
-## ⚠️ Agent Rules — Read Before Running Commands
+## ⚠️ Ticker Resolution First
 
-> These rules exist because real agents made these exact mistakes. Follow them strictly.
-
-1. **NEVER copy addresses from `--table` output** — table output truncates long values. Always use default JSON or `--pretty` when extracting addresses.
-2. **NEVER guess filter/flag names** — run `nansen schema` first to verify valid parameters.
-3. **NEVER use ticker symbols as addresses** — resolve tickers first (see workflow below).
-4. **Use JSON for data extraction, `--table` only for final display.**
-
-### Ticker-to-Address Resolution Workflow
-
-When a user asks about a token by name or ticker symbol:
-
-```
-Step 1: User says "show me PENGU holders"
-Step 2: Resolve address: nansen token screener --search PENGU --chain solana
-Step 3: Copy FULL address from JSON output (NOT from --table, which truncates)
-Step 4: Use address: nansen token holders --token <full_address> --chain solana
-```
-
-**Never skip Step 2.** Never fabricate or guess an address.
-
-## When to Use
-
-- "Who holds $TOKEN?" / "Top holders of X"
-- "Who's buying/selling $TOKEN?"
-- "Screen tokens by smart money interest"
-- "Token flows for $TOKEN"
-- "PnL leaderboard for $TOKEN"
-- "DEX trading activity for $TOKEN"
-- "Flow intelligence / label breakdown"
-
-## Command Routing
-
-| User Intent | Command | Key Options |
-|------------|---------|-------------|
-| Discover/filter tokens | `nansen token screener` | `--chain`, `--timeframe` (5m/10m/1h/6h/24h/7d/30d), `--smart-money`, `--limit`, `--sort` |
-| Token holder breakdown | `nansen token holders` | `--token` (required), `--chain`, `--smart-money`, `--limit` |
-| Token flow metrics (in/out) | `nansen token flows` | `--token` (required), `--chain`, `--limit` |
-| DEX trading activity | `nansen token dex-trades` | `--token` (required), `--chain`, `--smart-money`, `--days`, `--limit` |
-| PnL leaderboard for a token | `nansen token pnl` | `--token` (required), `--chain`, `--days`, `--limit`, `--sort` |
-| Recent buyers and sellers | `nansen token who-bought-sold` | `--token` (required), `--chain`, `--limit` |
-| Flow intelligence by label | `nansen token flow-intelligence` | `--token` (required), `--chain`, `--limit` |
-| Transfer history | `nansen token transfers` | `--token` (required), `--chain`, `--days`, `--limit` |
-| Jupiter DCA orders | `nansen token jup-dca` | `--token` (required), `--limit` |
-| Perp trades by symbol | `nansen token perp-trades` | `--symbol` (required), `--days`, `--limit` |
-| Perp positions by symbol | `nansen token perp-positions` | `--symbol` (required), `--limit` |
-| Perp PnL leaderboard | `nansen token perp-pnl-leaderboard` | `--symbol` (required), `--days`, `--limit` |
-
-> For perpetual/perps data, see **nansen-hyperliquid**.
-
-## ⚠️ Step 1: Token Address Resolution
-
-Most commands require a token contract address. If the user gives a ticker symbol, first help them find the address using:
-
+Most commands need a contract address. If user gives a ticker:
 ```bash
-nansen token screener --search <symbol>
+nansen token screener --search <SYMBOL> --chain <chain>
+# Copy FULL token_address from JSON (NOT --table)
 ```
 
-Or with filters:
+## Commands
 
-```bash
-nansen token screener --chain <chain> --filters '{"symbol": "TOKEN"}' --limit 5
-```
+| Intent | Command | Key Options |
+|--------|---------|-------------|
+| Discover tokens | `nansen token screener` | `--chain`, `--timeframe`, `--smart-money`, `--limit`, `--sort` |
+| Holder breakdown | `nansen token holders` | `--token` (req), `--chain`, `--smart-money`, `--limit` |
+| Flow metrics | `nansen token flows` | `--token` (req), `--chain`, `--limit` |
+| DEX trades | `nansen token dex-trades` | `--token` (req), `--chain`, `--smart-money`, `--days`, `--limit` |
+| PnL leaderboard | `nansen token pnl` | `--token` (req), `--chain`, `--days`, `--limit`, `--sort` |
+| Buyers/sellers | `nansen token who-bought-sold` | `--token` (req), `--chain`, `--limit` |
+| Flow intelligence | `nansen token flow-intelligence` | `--token` (req), `--chain`, `--limit` |
+| Transfers | `nansen token transfers` | `--token` (req), `--chain`, `--days`, `--limit` |
+| Jupiter DCA | `nansen token jup-dca` | `--token` (req), `--limit` |
 
-Use the returned `token_address` in subsequent commands. **Always resolve the address before running other token commands.**
+Perp commands use `--symbol`: see `nansen-hyperliquid.md`.
 
 ## Examples
 
-### Screen tokens with smart money interest on Ethereum
 ```bash
+# Screen by smart money on Ethereum
 nansen token screener --chain ethereum --sort smart_money_count:desc --limit 20 --table
-```
 
-### Top holders of a token
-```bash
-nansen token holders --token 0x... --chain ethereum --sort balance_usd:desc --limit 20 --table
-```
+# WETH holders
+nansen token holders --token 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 --chain ethereum --limit 20 --table
 
-### Who's buying and selling?
-```bash
+# Who's buying/selling?
 nansen token who-bought-sold --token 0x... --chain ethereum --table
-```
 
-### Token flows over 7 days
-```bash
-nansen token flows --token 0x... --chain ethereum --days 7 --table
-```
-
-### PnL leaderboard
-```bash
+# PnL leaderboard
 nansen token pnl --token 0x... --chain ethereum --sort realized_pnl:desc --limit 20 --table
 ```
 
-### DEX trades
-```bash
-nansen token dex-trades --token 0x... --chain ethereum --limit 30 --table
-```
+## Discovery Workflow
 
-### Flow intelligence — which labels are buying?
-```bash
-nansen token flow-intelligence --token 0x... --chain ethereum --table
-```
+1. **Screener** → find  2. **Holders** → who holds  3. **Who Bought/Sold** → activity  4. **Flow Intelligence** → labels  5. **PnL** → profits
 
-### Transfer history
-```bash
-nansen token transfers --token 0x... --chain ethereum --days 7 --limit 50 --table
-```
+## References
 
-## Token Discovery Workflow
+- Full parameters: `references/commands.md` (token section)
+- Example response: `references/examples/token-holders.json`
+- Schema: `references/schema.json`
 
-1. **Screener** — Find interesting tokens by smart money metrics
-2. **Holders** — Who holds it? Any smart money?
-3. **Who Bought/Sold** — Recent activity
-4. **Flow Intelligence** — Label-level breakdown (funds vs. smart traders vs. retail)
-5. **PnL** — Who's profiting?
-6. **Flows** — Net in/out over time
-
-## Output Formatting
-
-- Use `--table` for user-facing output
-- For holder analysis, show top 10–20 with labels when available
-- For PnL leaderboards, highlight top gainers and biggest losers
-- For flow intelligence, present as label → net flow summary
-
-## Cross-References
-
-- See a wallet in holders? → Use profiler commands to identify them
-- See smart money activity? → Use smart money commands for broader flows
-- Token has perp markets? → Use Hyperliquid commands for perp analysis
-
-
-## Troubleshooting
-
-- **Empty results?** Try a different `--chain`, broaden `--days`, or increase `--limit`. Not all data is available on every chain.
-- **Auth errors ("API key required" / "unauthorized")?** Set up via [app.nansen.ai/auth/agent-setup](https://app.nansen.ai/auth/agent-setup), or set `NANSEN_API_KEY` env var, or run `nansen login`.
-- **"Chain not supported"?** Check the 20 supported chains in nansen-core. Use exact lowercase names (e.g., `ethereum`, `bnb`, `hyperevm`).
-- **Invalid address?** EVM addresses must be `0x` + 40 hex chars. Solana addresses are Base58 (32-44 chars). ENS names may not be resolved by the CLI.
-
-## Attribution
-
-All outputs must include:
 > 📊 Data by [Nansen](https://nansen.ai)

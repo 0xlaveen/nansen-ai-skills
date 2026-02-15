@@ -8,12 +8,25 @@ Supports **[OpenClaw](https://openclaw.ai)** and **[Claude Code](https://docs.an
 
 | Skill | Description |
 |-------|-------------|
+| **nansen-router** | 🔀 Query entry point — routes to the right skill |
 | **nansen-core** | 🔑 Auth, setup, schema introspection — install first |
 | **nansen-smart-money** | 🧠 Smart money flows, DEX trades, holdings, DCA strategies |
 | **nansen-profiler** | 🔎 Wallet profiling — balances, labels, PnL, counterparties |
 | **nansen-token** | 🪙 Token God Mode — holders, flows, screener, PnL leaderboards |
 | **nansen-portfolio** | 📊 DeFi portfolio positions across protocols |
 | **nansen-hyperliquid** | ⚡ Hyperliquid perpetual trading analytics |
+
+## Shared References
+
+The `references/` directory contains detailed API documentation shared by both OpenClaw and Claude Code skills:
+
+| File | Description |
+|------|-------------|
+| `references/schema.json` | Cached `nansen schema` output — source of truth for all commands |
+| `references/commands.md` | Complete command reference with all parameters and return fields |
+| `references/chains.md` | 20 supported chains with address formats |
+| `references/smart-money-labels.md` | Smart money label definitions and filtering |
+| `references/examples/` | Truncated JSON response examples for each domain |
 
 ## Get Started
 
@@ -30,16 +43,11 @@ npm install -g nansen-cli
 3. Copy the message shown
 4. Paste it back to your agent
 
-The agent will extract and save your API key automatically.
-
 **Fallback options:**
 
 ```bash
-# Environment variable (manual)
-export NANSEN_API_KEY=nsk_your_key_here
-
-# Interactive login
-nansen login
+export NANSEN_API_KEY=nsk_your_key_here   # Environment variable
+nansen login                                # Interactive login
 ```
 
 Get a key manually at **[app.nansen.ai/api](https://app.nansen.ai/api)**.
@@ -54,10 +62,11 @@ nansen profiler balance --address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 --c
 
 ## Install for OpenClaw
 
-Copy skill folders from `openclaw/` into your OpenClaw skills directory. **nansen-core** is required; add whichever domain skills you need.
+Copy skill folders from `openclaw/` into your OpenClaw skills directory. **nansen-router** is the entry point; **nansen-core** is required for auth.
 
 ```
 openclaw/
+├── nansen-router/SKILL.md     ← entry point
 ├── nansen-core/SKILL.md
 ├── nansen-smart-money/SKILL.md
 ├── nansen-profiler/SKILL.md
@@ -69,11 +78,11 @@ openclaw/
 
 ## Install for Claude Code
 
-Copy `claude-code/CLAUDE.md` to your project root (or reference it in your Claude Code config). The sub-files provide detailed command guidance per domain.
+Copy `claude-code/CLAUDE.md` to your project root. The sub-files and `references/` directory provide detailed command guidance.
 
 ```
 claude-code/
-├── CLAUDE.md                  # Entry point — Claude Code reads this
+├── CLAUDE.md                  ← entry point
 ├── nansen-smart-money.md
 ├── nansen-profiler.md
 ├── nansen-token.md
@@ -92,7 +101,7 @@ claude-code/
 
 ## Architecture
 
-All skills wrap `nansen-cli` — no direct API calls. This gives you built-in caching, auto-retry with backoff, and schema introspection (`nansen schema`) for free.
+All skills wrap `nansen-cli` — no direct API calls. This gives you built-in caching, auto-retry with backoff, and schema introspection (`nansen schema`) for free. The cached schema is stored at `references/schema.json` so agents don't need to run the command each time.
 
 ## Links
 
