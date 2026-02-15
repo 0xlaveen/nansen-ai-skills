@@ -93,7 +93,7 @@ Historical holdings over time.
 | `--days` | number | no | 30 |
 | `--limit` | number | no | — |
 
-**Returns:** `date`, `token_address`, `token_symbol`, `balance`, `balance_usd`
+**Returns:** `date`, `chain`, `token_address`, `token_symbol`, `token_sectors`, `smart_money_labels`, `balance`, `value_usd`, `balance_24h_percent_change`, `holders_count`, `share_of_holdings_percent`, `token_age_days`, `market_cap_usd`
 
 ---
 
@@ -201,7 +201,7 @@ All commands require `--address` except `search`.
 | `--address` | string | **yes** |
 | `--limit` | number | no |
 
-**Returns:** `address`, `address_label`, `position_size`, `upnl_usd`, `position_value_usd`, `leverage_type`, `liquidation_price`, `funding_usd`
+**Returns:** `address`, `address_label`, `side`, `position_value_usd`, `position_size`, `leverage`, `leverage_type`, `entry_price`, `mark_price`, `liquidation_price`, `funding_usd`, `upnl_usd`
 
 ### `profiler perp-trades`
 | Option | Type | Required | Default |
@@ -338,7 +338,7 @@ Uses `--token` (contract address) for spot commands, `--symbol` (ticker) for per
 | `--symbol` | string | **yes** |
 | `--limit` | number | no |
 
-**Returns:** `address`, `address_label`, `position_size`, `upnl_usd`, `position_value_usd`, `leverage_type`, `liquidation_price`, `funding_usd`
+**Returns:** `address`, `address_label`, `side`, `position_value_usd`, `position_size`, `leverage`, `leverage_type`, `entry_price`, `mark_price`, `liquidation_price`, `funding_usd`, `upnl_usd`
 
 ### `token perp-pnl-leaderboard`
 | Option | Type | Required | Default |
