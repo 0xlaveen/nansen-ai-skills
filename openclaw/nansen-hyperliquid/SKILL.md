@@ -53,6 +53,15 @@ nansen token perp-positions --symbol SOL --sort size_usd:desc --table
 nansen profiler perp-positions --address 0x... --table
 ```
 
+## API-Only Endpoints (Not in CLI)
+
+These Hyperliquid endpoints exist in the Nansen API but have **no CLI command yet**:
+
+- **Perp Screener** (`/api/v1/perp-screener`) — Screen perp contracts by volume, OI, funding, smart money activity
+- **Perp Leaderboard** (`/api/v1/perp-leaderboard`) — Global Hyperliquid trader leaderboard by PnL/ROI over a date range
+
+To use these, call the API directly (not via CLI).
+
 ## Investigation Flow
 
 1. `smart-money perp-trades` → what are best traders doing?

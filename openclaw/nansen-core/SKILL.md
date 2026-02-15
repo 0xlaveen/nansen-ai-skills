@@ -67,6 +67,12 @@ This is the **source of truth** for all commands, options, and return fields.
 - Supported chains: `references/chains.md`
 - Smart money labels: `references/smart-money-labels.md`
 
+## Rate Limits & Credits
+
+- **Rate limits**: 20 requests/second, 300 requests/minute per API key. Returns HTTP 429 on exceed.
+- **Credits**: API calls consume credits. Smart Money endpoints cost 5 credits each. Most other endpoints cost 1 credit. Label lookups cost 500 credits. Check usage at `app.nansen.ai/api?tab=usage-analytics`.
+- **Plans**: Pro ($49/mo) gets 1,000 starter credits + can buy more. Free gets 100 one-time credits with limited endpoints.
+
 ## Error Handling
 
 | Error | Fix |
