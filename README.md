@@ -24,7 +24,7 @@ The `references/` directory contains detailed API documentation shared by both O
 |------|-------------|
 | `references/schema.json` | Cached `nansen schema` output — source of truth for all commands |
 | `references/commands.md` | Complete command reference with all parameters and return fields |
-| `references/chains.md` | 20 supported chains with address formats |
+| `references/chains.md` | 18 supported chains with address formats |
 | `references/smart-money-labels.md` | Smart money label definitions and filtering |
 | `references/examples/` | Truncated JSON response examples for each domain |
 
@@ -93,11 +93,11 @@ claude-code/
 
 ---
 
-## Supported Chains (20)
+## Supported Chains (18)
 
 **Primary:** Ethereum · Solana · Base · HyperEVM · BNB
 
-**Also:** Arbitrum · Polygon · Optimism · Avalanche · Linea · Scroll · zkSync · Mantle · Ronin · Sei · Plasma · Sonic · Unichain · Monad · IOTA EVM
+**Also:** Arbitrum · Polygon · Optimism · Avalanche · Linea · Scroll · Mantle · Ronin · Sei · Plasma · Sonic · Monad · IOTA EVM
 
 ## Architecture
 

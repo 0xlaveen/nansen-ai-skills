@@ -2,7 +2,7 @@
 name: nansen-profiler
 description: >-
   Profile any wallet or entity on-chain via Nansen CLI. Look up balances, labels,
-  transactions, PnL, related wallets, and counterparties. Search entities by name.
+  transactions, PnL, related wallets, and counterparties.
 metadata:
   clawdbot:
     emoji: "🔎"
@@ -13,51 +13,57 @@ metadata:
 
 # Nansen Profiler — Wallet Intelligence
 
-Profile any wallet: balances, labels, PnL, transactions, and entity search.
+Profile any wallet: balances, labels, PnL, transactions, and counterparties.
 
 ## When This Skill Activates
 
 - "Who is this wallet?" / "What does 0x... hold?"
 - "Show PnL for this address"
-- "Find wallets for Wintermute / Jump / Binance"
 - "Transaction history" / "Related wallets" / "Counterparties"
 
 ## Command Routing
 
-| User Intent | Command | Key Options |
-|------------|---------|-------------|
-| Token holdings | `profiler balance` | `--address` (req), `--chain`, `--entity` |
-| Wallet labels | `profiler labels` | `--address` (req), `--chain` |
-| Transactions | `profiler transactions` | `--address` (req), `--chain`, `--limit`, `--days` |
-| PnL | `profiler pnl` | `--address` (req), `--chain` |
-| PnL summary | `profiler pnl-summary` | `--address` (req), `--chain`, `--days` |
-| Entity search | `profiler search` | `--query` (req), `--limit` |
-| Historical balances | `profiler historical-balances` | `--address` (req), `--chain`, `--days` |
-| Related wallets | `profiler related-wallets` | `--address` (req), `--chain`, `--limit` |
-| Counterparties | `profiler counterparties` | `--address` (req), `--chain`, `--days` |
-| Perp positions | `profiler perp-positions` | `--address` (req), `--limit` |
-| Perp trades | `profiler perp-trades` | `--address` (req), `--days`, `--limit` |
+| User Intent | Command | Key Options | Status |
+|------------|---------|-------------|--------|
+| Token holdings | `profiler balance` | `--address` (req), `--chain`, `--entity` | ✅ |
+| Wallet labels | `profiler labels` | `--address` (req), `--chain` | ✅ |
+| Transactions | `profiler transactions` | `--address` (req), `--chain`, `--date` (req), `--limit` | ⚠️ needs `--date` |
+| Historical balances | `profiler historical-balances` | `--address` (req), `--chain`, `--days` | ✅ |
+| Counterparties | `profiler counterparties` | `--address` (req), `--chain`, `--days` | ✅ |
+| Perp trades | `profiler perp-trades` | `--address` (req), `--days`, `--limit` | ✅ |
+| PnL | `profiler pnl` | — | ⛔ Currently unavailable (404) |
+| PnL summary | `profiler pnl-summary` | `--address` (req), `--chain`, `--days` | ⚠️ CLI bug (sends invalid field) |
+| Entity search | `profiler search` | — | ⛔ Currently unavailable (404) |
+| Related wallets | `profiler related-wallets` | `--address` (req), `--chain`, `--limit` | ⚠️ CLI bug (sends invalid field) |
+| Perp positions | `profiler perp-positions` | `--address` (req), `--limit` | ⚠️ CLI bug (sends invalid field) |
+
+### ⚠️ Known Issues
+
+- **`profiler pnl`** and **`profiler search`** return 404 — do not use these commands.
+- **`profiler transactions`** requires `--date '{"from": "YYYY-MM-DD", "to": "YYYY-MM-DD"}'` (undocumented in schema). The `--days` option alone does NOT work.
+- **`profiler related-wallets`**, **`profiler pnl-summary`** — CLI sends invalid `filters` field; may fail.
+- **`profiler perp-positions`** — CLI sends invalid `pagination` field; may fail.
 
 ## Examples
 
 ```bash
 # Who is this wallet?
 nansen profiler labels --address 0x... --table
-nansen profiler balance --address 0x... --sort balance_usd:desc --limit 20 --table
+nansen profiler balance --address 0x... --sort value_usd:desc --limit 20 --table
 
-# PnL on Ethereum
-nansen profiler pnl --address 0x... --chain ethereum --table
+# Historical balances
+nansen profiler historical-balances --address 0x... --chain ethereum --days 30 --table
 
-# Search for an entity
-nansen profiler search --query Wintermute --limit 10 --table
+# Counterparties
+nansen profiler counterparties --address 0x... --chain ethereum --table
 
-# Related wallets
-nansen profiler related-wallets --address 0x... --table
+# Transactions (--date is required!)
+nansen profiler transactions --address 0x... --chain ethereum --date '{"from": "2026-01-01", "to": "2026-02-15"}' --limit 20 --table
 ```
 
 ## Investigation Workflow
 
-1. **Labels** → identity  2. **Balance** → current holdings  3. **PnL Summary** → profitability  4. **Counterparties** → interactions  5. **Related Wallets** → linked addresses
+1. **Labels** → identity  2. **Balance** → current holdings  3. **Historical Balances** → trends  4. **Counterparties** → interactions
 
 ## Ticker Resolution
 

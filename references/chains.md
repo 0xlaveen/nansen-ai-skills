@@ -1,6 +1,6 @@
 # Supported Chains
 
-20 chains supported by `nansen-cli`. Use exact lowercase names.
+18 chains supported by `nansen-cli`. Use exact lowercase names.
 
 ## Primary Chains
 
@@ -14,7 +14,7 @@
 
 ## All Chains
 
-`ethereum`, `solana`, `base`, `bnb`, `arbitrum`, `polygon`, `optimism`, `avalanche`, `linea`, `scroll`, `zksync`, `mantle`, `ronin`, `sei`, `plasma`, `sonic`, `unichain`, `monad`, `hyperevm`, `iotaevm`
+`ethereum`, `solana`, `base`, `bnb`, `arbitrum`, `polygon`, `optimism`, `avalanche`, `linea`, `scroll`, `mantle`, `ronin`, `sei`, `plasma`, `sonic`, `monad`, `hyperevm`, `iotaevm`
 
 ## Address Formats
 

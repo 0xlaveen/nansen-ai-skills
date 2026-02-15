@@ -12,19 +12,25 @@ nansen token screener --search <SYMBOL> --chain <chain>
 
 ## Commands
 
-| Intent | Command | Key Options |
-|--------|---------|-------------|
-| Discover tokens | `nansen token screener` | `--chain`, `--timeframe`, `--smart-money`, `--limit`, `--sort` |
-| Holder breakdown | `nansen token holders` | `--token` (req), `--chain`, `--smart-money`, `--limit` |
-| Flow metrics | `nansen token flows` | `--token` (req), `--chain`, `--limit` |
-| DEX trades | `nansen token dex-trades` | `--token` (req), `--chain`, `--smart-money`, `--days`, `--limit` |
-| PnL leaderboard | `nansen token pnl` | `--token` (req), `--chain`, `--days`, `--limit`, `--sort` |
-| Buyers/sellers | `nansen token who-bought-sold` | `--token` (req), `--chain`, `--limit` |
-| Flow intelligence | `nansen token flow-intelligence` | `--token` (req), `--chain`, `--limit` |
-| Transfers | `nansen token transfers` | `--token` (req), `--chain`, `--days`, `--limit` |
-| Jupiter DCA | `nansen token jup-dca` | `--token` (req), `--limit` |
+| Intent | Command | Key Options | Status |
+|--------|---------|-------------|--------|
+| Discover tokens | `nansen token screener` | `--chain`, `--timeframe`, `--smart-money`, `--limit`, `--sort` | ✅ |
+| Holder breakdown | `nansen token holders` | `--token` (req), `--chain`, `--smart-money`, `--limit` | ✅ |
+| DEX trades | `nansen token dex-trades` | `--token` (req), `--chain`, `--smart-money`, `--days`, `--limit` | ✅ |
+| PnL leaderboard | `nansen token pnl` | `--token` (req), `--chain`, `--days`, `--limit`, `--sort` | ✅ |
+| Transfers | `nansen token transfers` | `--token` (req), `--chain`, `--days`, `--limit` | ✅ |
+| Flow metrics | `nansen token flows` | `--token` (req), `--chain`, `--date` (req) | ⚠️ needs `--date` |
+| Buyers/sellers | `nansen token who-bought-sold` | `--token` (req), `--chain`, `--date` (req) | ⚠️ needs `--date` |
+| Flow intelligence | `nansen token flow-intelligence` | `--token` (req), `--chain`, `--limit` | ⚠️ CLI bug |
+| Jupiter DCA | `nansen token jup-dca` | `--token` (req), `--limit` | ✅ (Solana only) |
 
 Perp commands use `--symbol`: see `nansen-hyperliquid.md`.
+
+### ⚠️ Known Issues
+
+- **`token flows`** and **`token who-bought-sold`** require `--date '{"from": "YYYY-MM-DD", "to": "YYYY-MM-DD"}'`. Without it, the API errors.
+- **`token flow-intelligence`** — CLI sends invalid `pagination` field; may fail.
+- **`token jup-dca`** — Solana only. Use a Solana token address.
 
 ## Examples
 
@@ -35,16 +41,16 @@ nansen token screener --chain ethereum --sort smart_money_count:desc --limit 20 
 # WETH holders
 nansen token holders --token 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 --chain ethereum --limit 20 --table
 
-# Who's buying/selling?
-nansen token who-bought-sold --token 0x... --chain ethereum --table
+# Token flows (--date required!)
+nansen token flows --token 0x... --chain ethereum --date '{"from": "2026-02-01", "to": "2026-02-15"}' --table
 
 # PnL leaderboard
-nansen token pnl --token 0x... --chain ethereum --sort realized_pnl:desc --limit 20 --table
+nansen token pnl --token 0x... --chain ethereum --sort pnl_usd_realised:desc --limit 20 --table
 ```
 
 ## Discovery Workflow
 
-1. **Screener** → find  2. **Holders** → who holds  3. **Who Bought/Sold** → activity  4. **Flow Intelligence** → labels  5. **PnL** → profits
+1. **Screener** → find  2. **Holders** → who holds  3. **DEX Trades** → activity  4. **PnL** → profits
 
 ## References
 

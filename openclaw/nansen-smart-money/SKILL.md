@@ -1,7 +1,7 @@
 ---
 name: nansen-smart-money
 description: >-
-  Track Smart Money flows, DEX trades, holdings, and DCA strategies across 20 chains
+  Track Smart Money flows, DEX trades, holdings, and DCA strategies across 18 chains
   via Nansen CLI. Use when the user asks about what smart money is buying/selling,
   capital flows, fund activity, or smart trader positions.
 metadata:

@@ -39,7 +39,7 @@ Detailed parameter docs, chain lists, response schemas, and examples are in the 
 |------|-------------|
 | `references/schema.json` | Cached `nansen schema` output — source of truth |
 | `references/commands.md` | Complete command reference with all parameters |
-| `references/chains.md` | 20 supported chains |
+| `references/chains.md` | 18 supported chains |
 | `references/smart-money-labels.md` | Label definitions |
 | `references/examples/` | Truncated JSON response examples |
 
