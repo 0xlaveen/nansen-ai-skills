@@ -5,7 +5,7 @@ Blockchain analytics powered by [Nansen](https://nansen.ai). Track smart money f
 ## Setup
 
 ```bash
-npm install -g nansen-cli
+npm install -g nansen-cli@1.3.1
 ```
 
 Or: `bash claude-code/scripts/setup.sh`

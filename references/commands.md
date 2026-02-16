@@ -351,7 +351,7 @@ Uses `--token` (contract address) for spot commands, `--symbol` (ticker) for per
 
 ### `token jup-dca`
 
-> ℹ️ **Solana only** — this command only works with Solana token addresses.
+> ℹ️ **Solana only** — this command only works with Solana token addresses. Native tokens (e.g., wSOL) are not supported — use non-native token addresses (e.g., JUP, BONK).
 
 | Option | Type | Required |
 |--------|------|----------|

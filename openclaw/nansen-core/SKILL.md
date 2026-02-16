@@ -27,7 +27,7 @@ metadata:
 ```bash
 which nansen && nansen --version
 ```
-If missing: `npm install -g nansen-cli`
+If missing: `npm install -g nansen-cli@1.3.1`
 
 ### 2. Check auth
 ```bash
@@ -92,7 +92,7 @@ To use these, connect via MCP. See [docs.nansen.ai](https://docs.nansen.ai).
 | "Invalid API key" | New key at app.nansen.ai/api |
 | "Rate limited" | CLI auto-retries; wait if persistent |
 | "Chain not supported" | Check `references/chains.md` |
-| Command not found | `npm install -g nansen-cli` |
+| Command not found | `npm install -g nansen-cli@1.3.1` |
 
 ## Attribution
 

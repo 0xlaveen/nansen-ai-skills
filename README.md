@@ -33,7 +33,7 @@ The `references/` directory contains detailed API documentation shared by both O
 ### 1. Install nansen-cli
 
 ```bash
-npm install -g nansen-cli
+npm install -g nansen-cli@1.3.1
 ```
 
 ### 2. Set up your API key

@@ -23,11 +23,11 @@ if command -v nansen &>/dev/null; then
   echo -e "${GREEN}✓${NC} nansen-cli installed ($(nansen --version 2>/dev/null || echo 'unknown version'))"
 else
   echo -e "${YELLOW}→ Installing nansen-cli...${NC}"
-  npm install -g nansen-cli
+  npm install -g nansen-cli@1.3.1
   if command -v nansen &>/dev/null; then
     echo -e "${GREEN}✓${NC} nansen-cli installed successfully"
   else
-    echo -e "${RED}✗ Installation failed.${NC} Try: sudo npm install -g nansen-cli"
+    echo -e "${RED}✗ Installation failed.${NC} Try: sudo npm install -g nansen-cli@1.3.1"
     exit 1
   fi
 fi

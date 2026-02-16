@@ -49,7 +49,7 @@ nansen token screener --search <SYMBOL> --chain <chain>
 ### ⚠️ Known Issues
 
 - **`token flows`** and **`token who-bought-sold`** require `--date '{"from": "YYYY-MM-DD", "to": "YYYY-MM-DD"}'` — without it, the API returns an error.
-- **`token jup-dca`** — Solana only. Use a Solana token address, not EVM.
+- **`token jup-dca`** — Solana only. Use a non-native Solana token address (e.g., JUP, BONK). Native tokens like wSOL are rejected by the API.
 
 ### Response Field Notes (actual API vs schema)
 
