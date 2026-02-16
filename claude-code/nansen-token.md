@@ -18,19 +18,18 @@ nansen token screener --search <SYMBOL> --chain <chain>
 | Holder breakdown | `nansen token holders` | `--token` (req), `--chain`, `--smart-money`, `--limit` | ✅ |
 | DEX trades | `nansen token dex-trades` | `--token` (req), `--chain`, `--smart-money`, `--days`, `--limit` | ✅ |
 | PnL leaderboard | `nansen token pnl` | `--token` (req), `--chain`, `--days`, `--limit`, `--sort` | ✅ |
-| Transfers | `nansen token transfers` | `--token` (req), `--chain`, `--days`, `--limit` | ✅ |
+| Transfers | `nansen token transfers` | `--token` (req), `--chain`, `--days`, `--limit`, `--from`, `--to` | ✅ |
 | Flow metrics | `nansen token flows` | `--token` (req), `--chain`, `--date` (req) | ⚠️ needs `--date` |
 | Buyers/sellers | `nansen token who-bought-sold` | `--token` (req), `--chain`, `--date` (req) | ⚠️ needs `--date` |
-| Flow intelligence | `nansen token flow-intelligence` | `--token` (req), `--chain`, `--limit` | ⚠️ CLI bug |
+| Flow intelligence | `nansen token flow-intelligence` | `--token` (req), `--chain`, `--days` | ✅ |
 | Jupiter DCA | `nansen token jup-dca` | `--token` (req), `--limit` | ✅ (Solana only) |
 
 Perp commands use `--symbol`: see `nansen-hyperliquid.md`.
 
 ### ⚠️ Known Issues
 
-- **`token flows`** and **`token who-bought-sold`** require `--date '{"from": "YYYY-MM-DD", "to": "YYYY-MM-DD"}'`. Without it, the API errors.
-- **`token flow-intelligence`** — CLI sends invalid `pagination` field; may fail.
-- **`token jup-dca`** — Solana only. Use a Solana token address.
+- **`token flows`** and **`token who-bought-sold`** require `--date '{"from": "YYYY-MM-DD", "to": "YYYY-MM-DD"}'` — without it, the API returns an error.
+- **`token jup-dca`** — Solana only. Use a Solana token address, not EVM.
 
 ## Examples
 

@@ -65,6 +65,9 @@ Detailed parameter docs, chain lists, response schemas, and examples are in the 
 | `--limit` | Result count |
 | `--sort` | Sort field:direction |
 | `--chain` | Blockchain (per-command) |
+| `--cache` | Enable response caching |
+| `--stream` | Output as NDJSON |
+| `--format csv` | CSV output |
 
 ## Error Handling
 

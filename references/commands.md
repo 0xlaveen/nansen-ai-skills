@@ -15,6 +15,7 @@ Complete parameter reference for all commands. See `schema.json` for the machine
 | `--no-cache` | boolean | Disable cache for this request |
 | `--cache-ttl` | number | Cache TTL in seconds (default: 300) |
 | `--stream` | boolean | Output as NDJSON |
+| `--format` | string | Output format: `json` (default) or `csv` |
 
 > **Per-command options** like `--chain`, `--limit`, `--sort`, `--days`, `--filters` vary by command. Check `schema.json` or run `nansen schema`.
 
@@ -142,13 +143,12 @@ All commands require `--address` except `search`.
 | `--chain` | string | no | ethereum |
 
 ### `profiler search`
-
-> ⛔ **Currently unavailable** — returns 404 Not Found. This endpoint appears to be non-functional in the current CLI/API version.
-
 | Option | Type | Required |
 |--------|------|----------|
 | `--query` | string | **yes** |
 | `--limit` | number | no |
+
+**Returns:** `entity_name`
 
 ### `profiler historical-balances`
 | Option | Type | Required | Default |
@@ -160,9 +160,6 @@ All commands require `--address` except `search`.
 **Returns:** `block_timestamp`, `token_address`, `token_symbol`, `token_amount`, `value_usd`, `chain`
 
 ### `profiler related-wallets`
-
-> ⚠️ **CLI bug** — sends a `filters` field that the API rejects. May not work until CLI is fixed.
-
 | Option | Type | Required | Default |
 |--------|------|----------|---------|
 | `--address` | string | **yes** | — |
@@ -181,9 +178,6 @@ All commands require `--address` except `search`.
 **Returns:** `counterparty_address`, `counterparty_address_label`, `interaction_count`, `total_volume_usd`, `volume_in_usd`, `volume_out_usd`, `tokens_info`
 
 ### `profiler pnl-summary`
-
-> ⚠️ **CLI bug** — sends a `filters` field that the API rejects. May not work until CLI is fixed.
-
 | Option | Type | Required | Default |
 |--------|------|----------|---------|
 | `--address` | string | **yes** | — |
@@ -193,9 +187,6 @@ All commands require `--address` except `search`.
 **Returns:** `total_realized_pnl`, `total_unrealized_pnl`, `win_rate`, `total_trades`
 
 ### `profiler perp-positions`
-
-> ⚠️ **CLI bug** — sends a `pagination` field that the API rejects. May not work until CLI is fixed.
-
 | Option | Type | Required |
 |--------|------|----------|
 | `--address` | string | **yes** |
@@ -211,6 +202,50 @@ All commands require `--address` except `search`.
 | `--limit` | number | no | — |
 
 **Returns:** `symbol`, `side`, `size`, `price`, `value_usd`, `pnl_usd`, `timestamp`
+
+### `profiler batch`
+Profile multiple addresses in a single operation.
+
+| Option | Type | Required | Default |
+|--------|------|----------|---------|
+| `--addresses` | string | **yes** (or `--file`) | — |
+| `--file` | string | **yes** (or `--addresses`) | — |
+| `--chain` | string | no | ethereum |
+| `--include` | string | no | labels,balance |
+| `--delay` | number | no | 1000 |
+
+> `--addresses`: comma-separated list. `--file`: path to file with one address per line. `--include`: comma-separated list of `labels`, `balance`, `pnl`.
+
+**Returns:** Array of `{ address, chain, labels, balance, pnl, error }` per address.
+
+### `profiler trace`
+Multi-hop counterparty trace (BFS traversal from a root address).
+
+| Option | Type | Required | Default |
+|--------|------|----------|---------|
+| `--address` | string | **yes** | — |
+| `--chain` | string | no | ethereum |
+| `--depth` | number | no | 2 |
+| `--width` | number | no | 10 |
+| `--days` | number | no | 30 |
+| `--delay` | number | no | 1000 |
+
+> `--depth`: max hops (1-5). `--width`: top N counterparties per hop.
+
+**Returns:** `{ root, chain, depth, nodes, edges, stats }`
+
+### `profiler compare`
+Compare two wallets — shared counterparties, shared tokens, and balances.
+
+| Option | Type | Required | Default |
+|--------|------|----------|---------|
+| `--addresses` | string | **yes** | — |
+| `--chain` | string | no | ethereum |
+| `--days` | number | no | 30 |
+
+> `--addresses`: two comma-separated addresses.
+
+**Returns:** `{ addresses, chain, shared_counterparties, shared_tokens, balances }`
 
 ---
 
@@ -291,9 +326,6 @@ Uses `--token` (contract address) for spot commands, `--symbol` (ticker) for per
 **Returns:** `wallet_address`, `side`, `amount`, `value_usd`, `timestamp`, `labels`
 
 ### `token flow-intelligence`
-
-> ⚠️ **CLI bug** — sends a `pagination` field that the API rejects. May not work until CLI is fixed.
-
 | Option | Type | Required | Default |
 |--------|------|----------|---------|
 | `--token` | string | **yes** | — |
@@ -309,6 +341,11 @@ Uses `--token` (contract address) for spot commands, `--symbol` (ticker) for per
 | `--chain` | string | no | solana |
 | `--days` | number | no | 30 |
 | `--limit` | number | no | — |
+| `--from` | string | no | — |
+| `--to` | string | no | — |
+| `--enrich` | boolean | no | — |
+
+> Use `--from` or `--to` to filter by sender/recipient address. Use `--enrich` to add Nansen labels to from/to addresses.
 
 **Returns:** `transaction_hash`, `from_address`, `from_address_label`, `to_address`, `to_address_label`, `transfer_amount`, `transfer_value_usd`, `block_timestamp`, `transaction_type`
 

@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.2] - 2026-02-16
+
+### Updated (CLI v1.3.1 compatibility)
+- **`references/schema.json`** — Regenerated from `nansen-cli@1.3.1`. Now includes composite commands, correct return fields, and new global options
+- **`profiler search`** — Removed "Currently unavailable" marker (fixed in CLI v1.3.1)
+- **`profiler related-wallets`** — Removed CLI bug warning (invalid `filters` field fixed in CLI v1.3.1)
+- **`profiler pnl-summary`** — Removed CLI bug warning (invalid `filters` field fixed in CLI v1.3.1)
+- **`profiler perp-positions`** — Removed CLI bug warning (invalid `pagination` field fixed in CLI v1.3.1)
+- **`token flow-intelligence`** — Removed CLI bug warning (invalid `pagination` field fixed in CLI v1.3.1)
+
+### Added
+- **`profiler batch`** — New composite command: profile multiple addresses in one operation
+- **`profiler trace`** — New composite command: multi-hop BFS counterparty tracing
+- **`profiler compare`** — New composite command: compare two wallets (shared counterparties, tokens)
+- **`token transfers`** — Documented `--from`, `--to`, and `--enrich` options (new in CLI v1.3.1)
+- **Global options** — Documented `--format csv`, `--cache`, `--cache-ttl`, `--stream` in `commands.md` and Claude Code CLAUDE.md
+
 ## [1.0.1] - 2026-02-15
 
 ### Fixed

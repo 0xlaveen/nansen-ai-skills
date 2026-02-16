@@ -38,7 +38,7 @@ nansen token screener --search <SYMBOL> --chain <chain>
 | Holder breakdown | `token holders` | `--token` (req), `--chain`, `--smart-money`, `--limit` | ✅ |
 | DEX trades | `token dex-trades` | `--token` (req), `--chain`, `--smart-money`, `--days`, `--limit` | ✅ |
 | PnL leaderboard | `token pnl` | `--token` (req), `--chain`, `--days`, `--limit`, `--sort` | ✅ |
-| Transfers | `token transfers` | `--token` (req), `--chain`, `--days`, `--limit`, `--from`, `--to` | ✅ |
+| Transfers | `token transfers` | `--token` (req), `--chain`, `--days`, `--limit`, `--from`, `--to`, `--enrich` | ✅ |
 | Flow metrics | `token flows` | `--token` (req), `--chain`, `--date` (req) | ⚠️ needs `--date` |
 | Buyers/sellers | `token who-bought-sold` | `--token` (req), `--chain`, `--date` (req) | ⚠️ needs `--date` |
 | Flow intelligence | `token flow-intelligence` | `--token` (req), `--chain`, `--days` | ✅ |

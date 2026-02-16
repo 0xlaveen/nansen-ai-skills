@@ -56,6 +56,9 @@ User query
 | "Fund flows on Base" | nansen-smart-money | `nansen smart-money netflow` |
 | "PnL for this wallet" | nansen-profiler | `nansen profiler pnl-summary` (note: `profiler pnl` returns 404, use pnl-summary) |
 | "Search for entity" | nansen-profiler | `nansen profiler search --query "name"` |
+| "Compare two wallets" | nansen-profiler | `nansen profiler compare --addresses "0x...,0x..."` |
+| "Trace counterparty network" | nansen-profiler | `nansen profiler trace --address 0x... --depth 2` |
+| "Profile multiple wallets" | nansen-profiler | `nansen profiler batch --addresses "0x...,0x..."` |
 | "Who's long BTC?" | nansen-hyperliquid | `nansen token perp-positions` |
 
 ## Overlap Resolution
