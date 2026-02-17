@@ -26,11 +26,11 @@ Deep analytics for any token: holders, flows, trades, PnL, and discovery.
 
 Most commands need a contract address. If user gives a ticker:
 ```bash
-nansen token screener --chain <chain> --sort volume:desc
-# Then filter results by token_symbol in the JSON output
+nansen token screener --chain <chain> --search <SYMBOL> --limit 10
+# Returns tokens matching the symbol/name. Use the token_address from results.
 ```
 
-> **Note:** The `--search` flag exists but does NOT filter by token_symbol. You must fetch the full screener results and filter client-side by `token_symbol`.
+> **Tip:** `--search` does client-side filtering. For broad discovery, omit `--search` and use `--sort volume:desc`.
 
 ## Command Routing
 
@@ -65,7 +65,7 @@ nansen token screener --chain <chain> --sort volume:desc
 
 ```bash
 # Screen tokens on Ethereum by smart money
-nansen token screener --chain ethereum --sort smart_money_count:desc --limit 20 --table
+nansen token screener --chain ethereum --smart-money --sort nof_traders:desc --limit 20 --table
 
 # Top WETH holders (smart money only)
 nansen token holders --token 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 --chain ethereum --smart-money --limit 20 --table

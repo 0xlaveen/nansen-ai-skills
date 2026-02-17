@@ -27,7 +27,7 @@ metadata:
 ```bash
 which nansen && nansen --version
 ```
-If missing: `npm install -g nansen-cli@1.3.1`
+If missing: `npm install -g nansen-cli`
 
 ### 2. Check auth
 ```bash
@@ -57,7 +57,7 @@ This is the **source of truth** for all commands, options, and return fields.
 
 1. **NEVER copy addresses from `--table` output** — truncates values. Use JSON.
 2. **NEVER guess filter/flag names** — check `references/schema.json` or run `nansen schema`.
-3. **NEVER use ticker symbols as addresses** — resolve via `nansen token screener --chain <chain> --sort volume:desc` then filter by `token_symbol` in output. The `--search` flag does NOT filter.
+3. **NEVER use ticker symbols as addresses** — resolve via `nansen token screener --chain <chain> --search <SYMBOL> --limit 10` to find the token address. Or use `--sort volume:desc` and filter by `token_symbol` in output.
 4. **Use JSON for data extraction, `--table` only for display.**
 
 ## References
@@ -92,7 +92,7 @@ To use these, connect via MCP. See [docs.nansen.ai](https://docs.nansen.ai).
 | "Invalid API key" | New key at app.nansen.ai/api |
 | "Rate limited" | CLI auto-retries; wait if persistent |
 | "Chain not supported" | Check `references/chains.md` |
-| Command not found | `npm install -g nansen-cli@1.3.1` |
+| Command not found | `npm install -g nansen-cli` |
 
 ## Attribution
 

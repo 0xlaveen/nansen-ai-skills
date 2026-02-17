@@ -44,10 +44,10 @@ BTC, ETH, SOL, DOGE, ARB, OP, AVAX, MATIC, LINK, UNI, AAVE, WIF, PEPE, JUP, TIA
 nansen smart-money perp-trades --sort value_usd:desc --limit 20 --table
 
 # BTC PnL leaderboard
-nansen token perp-pnl-leaderboard --symbol BTC --sort total_pnl:desc --limit 20 --table
+nansen token perp-pnl-leaderboard --symbol BTC --sort pnl_usd_total:desc --limit 20 --table
 
 # Open positions for SOL
-nansen token perp-positions --symbol SOL --sort size_usd:desc --table
+nansen token perp-positions --symbol SOL --sort position_value_usd:desc --table
 
 # Trader's positions
 nansen profiler perp-positions --address 0x... --table

@@ -33,28 +33,32 @@ Track what institutional funds and profitable traders are doing onchain.
 | Current holdings | `nansen smart-money holdings` | `--chain`, `--limit`, `--labels` |
 | Holdings over time | `nansen smart-money historical-holdings` | `--chain`, `--days`, `--limit` |
 | Jupiter DCA strategies | `nansen smart-money dcas` | `--limit`, `--filters` |
+| Smart money perp trades | `nansen smart-money perp-trades` | `--limit`, `--sort`, `--filters` *(no --chain, Hyperliquid only)* |
 
-> For perp trades → see **nansen-hyperliquid**.
+> For token-level perp analysis → see **nansen-hyperliquid**.
 
 ## Examples
 
 ```bash
 # Smart money buying on Solana
-nansen smart-money netflow --chain solana --sort net_flow_usd:desc --limit 20 --table
+nansen smart-money netflow --chain solana --sort net_flow_24h_usd:desc --limit 20 --table
 
 # Fund flows on Ethereum
-nansen smart-money netflow --chain ethereum --filters '{"label": "Fund"}' --sort net_flow_usd:desc --table
+nansen smart-money netflow --chain ethereum --filters '{"label": "Fund"}' --sort net_flow_24h_usd:desc --table
 
 # DEX trades on Base
 nansen smart-money dex-trades --chain base --limit 30 --table
 
 # Current holdings on BNB
-nansen smart-money holdings --chain bnb --sort balance_usd:desc --limit 20 --table
+nansen smart-money holdings --chain bnb --sort value_usd:desc --limit 20 --table
+
+# Smart money perp trades
+nansen smart-money perp-trades --sort value_usd:desc --limit 20 --table
 ```
 
 ## Interpretation
 
-- High positive `net_flow_usd` = accumulating
+- High positive `net_flow_24h_usd` = accumulating
 - High negative = distributing
 - High `trader_count` with positive flow = strong conviction
 
