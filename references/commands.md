@@ -135,12 +135,22 @@ All commands require `--address` except `search`.
 
 ### `profiler pnl`
 
-> ⛔ **Currently unavailable** — returns 404 Not Found. This endpoint appears to be non-functional in the current CLI/API version.
+Per-token PnL analysis. Uses `/api/v1/profiler/address/pnl`. Requires `--date` range.
 
 | Option | Type | Required | Default |
 |--------|------|----------|---------|
 | `--address` | string | **yes** | — |
 | `--chain` | string | no | ethereum |
+| `--date` | string | **yes** | — |
+
+**Note:** The CLI command `nansen profiler pnl` uses the old endpoint path (`pnl-and-trade-performance`) which returns 404. Use direct API curl instead:
+```bash
+curl -s -X POST 'https://api.nansen.ai/api/v1/profiler/address/pnl' \
+  -H "apiKey: $NANSEN_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"address":"0x...","chain":"ethereum","date":{"from":"2026-01-01","to":"2026-02-17"}}'
+```
+
+**Returns:** `pnl_usd_realised`, `pnl_usd_unrealised`, `avg_buy_price`, `avg_sell_price`, `roi`
 
 ### `profiler search`
 | Option | Type | Required |

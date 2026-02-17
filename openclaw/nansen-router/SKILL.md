@@ -54,10 +54,10 @@ User query
 | "Set up Nansen" | nansen-core | Check auth |
 | "Screen tokens on Solana" | nansen-token | `nansen token screener` |
 | "Fund flows on Base" | nansen-smart-money | `nansen smart-money netflow` |
-| "PnL for this wallet" | nansen-profiler | `nansen profiler pnl-summary` (note: `profiler pnl` returns 404, use pnl-summary) |
+| "PnL for this wallet" | nansen-profiler | `nansen profiler pnl-summary` for aggregate. For per-token PnL, use curl to `/api/v1/profiler/address/pnl` (CLI calls wrong endpoint) |
 | "Search for entity" | nansen-profiler | `nansen profiler search --query "name"` |
 | "Compare two wallets" | nansen-profiler | `nansen profiler compare --addresses "0x...,0x..."` |
-| "Trace counterparty network" | nansen-profiler | `nansen profiler trace --address 0x... --depth 2` |
+| "Trace counterparty network" | nansen-profiler | `nansen profiler trace --address 0x... --depth 2` (won't work for high-volume addresses on longer timeframes) |
 | "Profile multiple wallets" | nansen-profiler | `nansen profiler batch --addresses "0x...,0x..."` |
 | "Who's long BTC?" | nansen-hyperliquid | `nansen token perp-positions` |
 
@@ -73,7 +73,7 @@ Some queries could match multiple skills:
 
 1. **NEVER copy addresses from `--table` output** — it truncates. Use JSON for extraction.
 2. **NEVER guess filter/flag names** — check `references/schema.json` or run `nansen schema`.
-3. **NEVER use ticker symbols as addresses** — resolve via `nansen token screener --search <SYMBOL>`.
+3. **NEVER use ticker symbols as addresses** — resolve via `nansen token screener --chain <chain> --sort volume:desc` then filter by `token_symbol` in output. The `--search` flag does NOT filter.
 4. **Use JSON for data extraction, `--table` only for final display.**
 
 ## References

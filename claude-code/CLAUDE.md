@@ -28,7 +28,7 @@ nansen profiler balance --address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 --c
 
 1. **NEVER copy addresses from `--table` output** — truncates values. Use JSON.
 2. **NEVER guess filter/flag names** — check `references/schema.json` or run `nansen schema`.
-3. **NEVER use ticker symbols as addresses** — resolve via `nansen token screener --search <SYMBOL>`.
+3. **NEVER use ticker symbols as addresses** — resolve via `nansen token screener --chain <chain> --sort volume:desc` then filter by `token_symbol` in output. The `--search` flag does NOT filter.
 4. **Use JSON for data extraction, `--table` only for display.**
 
 ## Shared References

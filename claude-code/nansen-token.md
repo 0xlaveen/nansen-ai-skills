@@ -6,7 +6,8 @@ Deep analytics for any token: holders, flows, trades, PnL, and discovery.
 
 Most commands need a contract address. If user gives a ticker:
 ```bash
-nansen token screener --search <SYMBOL> --chain <chain>
+nansen token screener --chain <chain> --sort volume:desc
+# Then filter by token_symbol in output. --search flag does NOT filter.
 # Copy FULL token_address from JSON (NOT --table)
 ```
 

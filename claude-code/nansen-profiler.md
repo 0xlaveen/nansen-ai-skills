@@ -17,13 +17,14 @@ Profile any wallet: balances, labels, PnL, transactions, and counterparties.
 | Perp positions | `nansen profiler perp-positions` | `--address` (req) | ✅ |
 | Entity search | `nansen profiler search` | `--query` (req), `--limit` | ✅ |
 | Batch profile | `nansen profiler batch` | `--addresses` or `--file` (req), `--chain`, `--include` | ✅ |
-| Trace | `nansen profiler trace` | `--address` (req), `--chain`, `--depth`, `--width` | ✅ |
+| Counterparty trace | `nansen profiler trace` | `--address` (req), `--chain`, `--depth`, `--width` | ⚠️ Won't work for high-volume addresses on longer timeframes |
 | Compare wallets | `nansen profiler compare` | `--addresses` (req), `--chain`, `--days` | ✅ |
-| PnL | `nansen profiler pnl` | — | ⛔ Unavailable (404) |
+| PnL (per-token) | `nansen profiler pnl` | `--address` (req), `--chain`, `--date` (req) | ⚠️ CLI broken, use curl to `/api/v1/profiler/address/pnl` |
 
 ### ⚠️ Known Issues
 
-- **`profiler pnl`** returns 404 — use `profiler pnl-summary` instead.
+- **`profiler pnl`** — CLI calls wrong endpoint path. Use `profiler pnl-summary` for aggregate, or curl `/api/v1/profiler/address/pnl` for per-token PnL.
+- **`profiler trace`** — Won't work for high-volume addresses on longer timeframes. Use `--depth 2` and short timeframes for large wallets.
 - **`profiler transactions`** requires `--date '{"from": "YYYY-MM-DD", "to": "YYYY-MM-DD"}'` — the `--days` option alone does NOT work.
 
 ## Examples
@@ -64,7 +65,7 @@ nansen profiler compare --addresses "0xabc...,0xdef..." --chain ethereum
 
 ## Ticker Resolution
 
-User gives ticker? Resolve first: `nansen token screener --search PENGU --chain solana` → copy full address from JSON.
+User gives ticker? Resolve first: `nansen token screener --chain solana --sort volume:desc` → filter by `token_symbol` in output → copy full address from JSON. Note: `--search` flag does NOT filter.
 
 ## References
 

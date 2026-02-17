@@ -37,13 +37,14 @@ Profile any wallet: balances, labels, PnL, transactions, and counterparties.
 | Perp positions | `profiler perp-positions` | `--address` (req) | ✅ |
 | Entity search | `profiler search` | `--query` (req), `--limit` | ✅ |
 | Batch profile | `profiler batch` | `--addresses` or `--file` (req), `--chain`, `--include` | ✅ |
-| Trace | `profiler trace` | `--address` (req), `--chain`, `--depth`, `--width` | ✅ |
+| Counterparty trace | `profiler trace` | `--address` (req), `--chain`, `--depth`, `--width` | ⚠️ See note |
 | Compare wallets | `profiler compare` | `--addresses` (req), `--chain`, `--days` | ✅ |
-| PnL | `profiler pnl` | — | ⛔ Currently unavailable (404) |
+| PnL (per-token) | `profiler pnl` | `--address` (req), `--chain`, `--date` (req) | ⚠️ CLI broken, use curl |
 
 ### ⚠️ Known Issues
 
-- **`profiler pnl`** returns 404 — use `profiler pnl-summary` instead.
+- **`profiler pnl`** — The CLI calls the old endpoint path (`pnl-and-trade-performance`) which returns 404. The correct API endpoint `/api/v1/profiler/address/pnl` works via curl. Requires `date` range. Use `profiler pnl-summary` for aggregate PnL, or curl for per-token PnL.
+- **`profiler trace`** (counterparty trace) — Will not work for high-volume addresses if you search longer timeframes. Use `--depth 2` and short timeframes for large wallets.
 - **`profiler transactions`** requires `--date '{"from": "YYYY-MM-DD", "to": "YYYY-MM-DD"}'` — the `--days` option alone does NOT work.
 
 ### Response Field Notes
@@ -84,8 +85,13 @@ nansen profiler perp-positions --address 0x...
 # Batch profile multiple wallets
 nansen profiler batch --addresses "0xabc...,0xdef..." --chain ethereum --include labels,balance
 
-# Trace counterparty network (BFS)
+# Counterparty trace (BFS) — use low depth for high-volume wallets
 nansen profiler trace --address 0x... --chain ethereum --depth 2 --width 10
+
+# Per-token PnL (CLI broken, use curl)
+curl -s -X POST 'https://api.nansen.ai/api/v1/profiler/address/pnl' \
+  -H "apiKey: $NANSEN_API_KEY" -H 'Content-Type: application/json' \
+  -d '{"address":"0x...","chain":"ethereum","date":{"from":"2026-01-01","to":"2026-02-17"}}'
 
 # Compare two wallets
 nansen profiler compare --addresses "0xabc...,0xdef..." --chain ethereum
@@ -99,7 +105,9 @@ nansen profiler compare --addresses "0xabc...,0xdef..." --chain ethereum
 
 If user gives a ticker instead of address:
 ```bash
-nansen token screener --search PENGU --chain solana  # → get full token_address from JSON
+nansen token screener --chain solana --sort volume:desc
+# Filter output by token_symbol to find the address
+# Note: --search flag does NOT filter results
 ```
 
 ## References
